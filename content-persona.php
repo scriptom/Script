@@ -7,6 +7,7 @@
 		$edit_btn =	"<small><a href=\"{$edit_url}\" title=\"Editar ".get_the_title()."\"><i class=\"fa fa-edit text-secondary\"></i></a></small>";
 	endif;
 	$fields = get_field_objects();
+<<<<<<< HEAD
 	$partes_nombre = array_filter($post_meta, function($k){
 		return endsWith($k, 'Nombre') || endsWith($k, 'Apellido');
 	}, ARRAY_FILTER_USE_KEY);
@@ -17,6 +18,10 @@
 	foreach ($partes_nombre as $parte => &$sa) $sa = $sa[0];
 	
 	error_log(print_r($partes_nombre, true));
+=======
+	error_log(print_r($fields, true));
+	error_log(print_r($post_meta, true));
+>>>>>>> 8ce2ea730beccd17cebfe34cc278fea5f1a10d45
 ?>	 
 <?php the_title( '<h1 class="text-center pel-titulo">  ', ($is_editor?"  ".$edit_btn:'').'</h1>', true ); ?>
 	<div class="row">
@@ -27,13 +32,19 @@
 			<img src="https://placehold.it/350x200" alt="placeholder" class="img-fluid poster rounded">
 			<?php endif; ?>
 		</div>
+<<<<<<< HEAD
 		<div class="col-md-8">
 			<div class="card box-shadow bg-dark border border-light">
+=======
+		<div class="col-md-6 ml-md-5">
+			<div class="card bg-dark border border-light">
+>>>>>>> 8ce2ea730beccd17cebfe34cc278fea5f1a10d45
 				<h3 class="card-header text-center">Biograf&iacute;a</h3>
 				<div class="card-body text-justify">
 					<?php the_content(); ?>
 				</div> <!-- /.card-body -->
 				<div class="card-footer">
+<<<<<<< HEAD
 					<div class="font-italic">
 						<div class="col-md-6">
 							Nombre completo: <?php echo implode(" ", $partes_nombre); ?>
@@ -49,6 +60,9 @@
 						</div>									
 						<?php endif; ?>	
 					</div>
+=======
+					
+>>>>>>> 8ce2ea730beccd17cebfe34cc278fea5f1a10d45
 				</div>
 			</div> <!-- /.card -->
 		</div> <!-- /.col -->

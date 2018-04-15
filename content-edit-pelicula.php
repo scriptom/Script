@@ -1,8 +1,16 @@
+<<<<<<< HEAD
+=======
+<!-- TODO: Procesar la data que regresa del autocomplete -->
+>>>>>>> 8ce2ea730beccd17cebfe34cc278fea5f1a10d45
 <?php
 
 	// Si no es minimo contributor, no tiene acceso a esta pagina. Mostremos mensaje
 	if ( !current_user_can( 'edit_posts' ) ) :
+<<<<<<< HEAD
 		wp_die( 'No tiene acceso a esta pagina', 'Error al cargar la página' );
+=======
+		wp_die( 'No tiene acceso a esta pagina. Probablemente no este registrado o no haya iniciado sesion', 'Error al cargar la página' );
+>>>>>>> 8ce2ea730beccd17cebfe34cc278fea5f1a10d45
 	endif;
 
 	$dbid = get_post_meta( get_the_ID(), '_database_id', true );
@@ -21,7 +29,11 @@
 	// error_log($pelicula);
 	// extract($pelicula);
 ?>
+<<<<<<< HEAD
 <?php the_title( '<h1 class="text-center pel-titulo">Editando: <a class="text-white" href="'.get_the_permalink().'">', '</a></h1>', true ); ?>
+=======
+<?php the_title( '<h1 class="text-center pel-titulo">Editando: ', '</h1>', true ); ?>
+>>>>>>> 8ce2ea730beccd17cebfe34cc278fea5f1a10d45
 		<div class="row justify-content-center">
 			<div class="col-md-4">
 				<?php if ( has_post_thumbnail() ): ?>
@@ -33,6 +45,7 @@
 		</div> <!-- /.row -->
 		<div class="row">
 			<div class="col-md-12">
+<<<<<<< HEAD
 				<div class="card inner-shadow bg-dark border border-light">
 					<div class="card-header">
 						<ul class="nav nav-pills nav-fill" role="tablist" id="cambios-tabs">
@@ -64,15 +77,39 @@
 					<div class="card-body">
 						<form id="editar-peli-form">
 							<input type="hidden" name="dbid" value="<?php echo esc_attr($dbid); ?>">
+=======
+				<div class="card bg-dark border border-light">
+					<div class="card-header">
+						<nav class="nav nav-pills" role="tablist" id="cambios-tabs">
+							<a href="#dgenerales" class="nav-item nav-link active" id="dgenerales-tab" role="tab" data-toggle="tab" aria-selected="true">Datos Generales</a>
+							<a href="#dficha-tecnica" class="nav-item nav-link" id="dficha-tecnica-tab" role="tab" data-toggle="tab" aria-selected="false">Ficha Técnica</a>
+							<a href="#dgadapt" class="nav-item nav-link" id="dgadapt-tab" role="tab" data-toggle="tab" aria-controls="dgadapt" aria-selected="false">Guiones adaptados</a>
+							<a href="#dcritica" class="nav-item nav-link" id="dcritica-tab" role="tab" data-toggle="tab" aria-selected="false">Cr&iacute;tica</a>
+							<a href="#dgentem" class="nav-item nav-link" id="dgentem-tab" role="tab" data-toggle="tab" aria-selected="false">Género y Temática</a>
+							<a href="#dlugares" class="nav-item nav-link" id="dlugares-tab" role="tab" data-toggle="tab" aria-controls="dlugares" aria-selected="false">Locaciones</a>
+							<a href="#dreparto" class="nav-item nav-link" id="dreparto-tab" role="tab" data-toggle="tab" aria-controls="dreparto" aria-selected="false">Reparto</a>
+
+						</nav> <!-- /#cambios-tabs --> 
+					</div>
+					<div class="card-body">
+						<form id="editar-peli-form">
+							<input type="hidden" name="dbid" value="<?php echo $dbid; ?>">
+>>>>>>> 8ce2ea730beccd17cebfe34cc278fea5f1a10d45
 							<div class="tab-content">
 									<div class="tab-pane fade show active" id="dgenerales" aria-labelledby="dgenerales-tab" role="tabpanel">
 										<h2 class="text-center">Datos Generales</h2>
 										<div class="row">
 											<div class="col-md-6">
 												<label class="h3 text-center" for='pel_titulo'>T&iacute;tulo</label>
+<<<<<<< HEAD
 												<input type="text" name="pel_titulo" id="pel_titulo" value="<?php echo esc_attr(get_the_title()); ?>" disabled class="form-control disabled">
 												<label for="pel_ano">A&ntilde;o estreno</label>
 												<input type="number" class="form-control col-md-2" name="pel_ano" min="1897" max="<?php echo date("Y")+5; ?>" id="pel_ano">
+=======
+												<input type="text" name="pel_titulo" id="pel_titulo" value="<?php echo get_the_title(); ?>" disabled class="form-control disabled">
+												<label for="pel_ano">A&ntilde;o estreno</label>
+												<input type="number" class="form-control col-2" name="pel_ano" min="1897" max="<?php echo date("Y")+5; ?>" id="pel_ano">
+>>>>>>> 8ce2ea730beccd17cebfe34cc278fea5f1a10d45
 											</div> <!-- /.col-md-6 -->
 											<div class="col-md-6 align-self-center">
 												<label class="text-center h3">Proponer Sin&oacute;psis</label>
@@ -88,6 +125,7 @@
 											</div> <!-- /.col-md-6 -->
 										</div> <!-- /.row -->
 									</div> <!-- /.tab-pane -->
+<<<<<<< HEAD
 									<div class="tab-pane fade" id="dft-casas" aria-labelledby="dft-casas" role="tabpanel">
 										<h2 class="text-center mb-3">Ficha T&eacute;cnica: Organizaciones</h2>
 										<h5 class="d-block">
@@ -186,6 +224,119 @@
 												</div> 
 											</div> 
 										</div> 
+=======
+									<div class="tab-pane fade" id="dficha-tecnica" aria-labelledby="dficha-tecnica-tab" role="tabpanel">
+										<h2 class="text-center mb-3">Ficha T&eacute;cnica</h2>
+										<div class="form-row align-items-start">
+											<div class="col-md-6">
+												<fieldset class="fieldset">
+													<legend class="h5">Cargos Personales
+														<small class="icon-wrap">
+															<a href="#" class="js-add-new text-secondary" data-adds='ft' id="ft-btn-add" title="A&ntilde;adir nuevo">
+																<span class="fa-stack fa-sm">
+																	<i class="fa fa-circle-thin fa-stack-2x"></i>
+																	<i class="fa fa-plus fa-stack-1x"></i>
+																</span>
+															</a>
+														</small>
+													</legend>
+													<div id="ft-container">
+														<div class="ft form-row" data-rowtab="ft" id="ft-row-parent-1">
+															<div class="col-xs-5 col-md-5">
+																<div class="form-group">
+																	<label for="ft-input-resp-1">La persona</label>
+																	<input type="text" class="form-control autocomplete-per" list="ft-cargos" id="ft-input-resp-1" name="ft-entries[0][nombre]">
+																	<input type="hidden" name="ft-entries[0][per_id]" id="ft-per[0]-dbid">
+																	<!-- <datalist id="ft-cargos" class="js-datalist">
+																			<?php// foreach ($query2 as $post) :?>
+																			<?php //$database_id = get_post_meta( $post->ID, '_per_database_id', true ); ?>
+																				<option value="<?php //echo $post->post_title ?>"><?php //echo $database_id; ?></option>
+																			<?php //endforeach; ?>
+																			<?php //reset_postdata(); ?>
+																	</datalist> -->
+																</div> <!-- .form-group -->
+															</div>
+															<div class="col-xs-5 col-md-6">
+																<div class="form-group">
+																	<label for="ft-select-puesto-1">Tuvo el cargo de</label>
+																	<select name="ft-entries[0][cargo]" id="ft-select-puesto-1" class="form-control select-puesto">
+																		<option value="0">Seleccione un campo</option>
+																		<?php foreach ($cargos as $cargo): ?>
+																		<option value="<?php echo $cargo['id']; ?>"><?php echo $cargo["tip_car_nombre"]; ?></option>
+																		<?php endforeach ?>
+																	</select>
+																</div>
+															</div>
+															<div class="col-xs-2 col-md-1 align-self-end">
+																<div class="form-group">
+																	<a href="#" class="text-secondary js-btn-remove" data-deletes="#ft-row-parent-1" title="Quitar propuesta">
+																		<span class="fa-stack fa-sm">
+																			<i class="fa fa-circle-thin fa-stack-2x"></i>
+																			<i class="fa fa-minus fa-stack-1x"></i>
+																		</span>
+																	</a>
+																</div> 
+															</div> 
+														</div> 
+													</div> 
+												</div>
+												</fieldset>
+											<div class="col-md-6">
+												<fieldset class="fieldset">
+													<legend class="h5">
+													Empresariales
+														<small class="icon-wrap">
+															<a href="#" class="js-add-new text-secondary" data-adds='cp' id="cp-btn-add" title="A&ntilde;adir nuevo">
+																<span class="fa-stack fa-sm">
+																	<i class="fa fa-circle-thin fa-stack-2x"></i>
+																	<i class="fa fa-plus fa-stack-1x"></i>
+																</span>
+															</a>
+														</small>
+													</legend>
+													<div id="cp-container">
+														<div class="cp form-row" data-rowtab="cp" id="cp-row-parent-1">
+															<div class="col-xs-5 col-md-5">
+																<div class="form-group">
+																	<label for="cp-input-resp-1">La compa&ntilde;&iacute;a</label>
+																	<input type="text" class="form-control autocomplete-cp" list="cp-cargos" id="cp-input-resp-1" name="cp-entries[0][nombre]">
+
+																	<!-- <datalist id="cp-cargos" class="js-datalist">
+																			<?php// foreach ($query2 as $post) :?>
+																			<?php //$database_id = get_post_meta( $post->ID, '_per_database_id', true ); ?>
+																				<option value="<?php //echo $post->post_title ?>"><?php //echo $database_id; ?></option>
+																			<?php //endforeach; ?>
+																			<?php //reset_postdata(); ?>
+																	</datalist> -->
+																</div> <!-- .form-group -->
+															</div>
+															<div class="col-xs-5 col-md-6">
+																<div class="form-group">
+																	<label for="cp-select-puesto-1">Particip&oacute; como</label>
+																	<select name="cp-entries[0][cargo]" id="cp-select-puesto-1" class="form-control select-puesto">
+																		<option value="0">Seleccione un campo</option>
+																		<?php foreach ($cargos as $cargo): ?>
+																		<option value="<?php echo $cargo['id']; ?>"><?php echo $cargo["tip_car_nombre"]; ?></option>
+																		<?php endforeach ?>
+																	</select>
+																</div>
+															</div>
+															<div class="col-xs-2 col-md-1 align-self-end">
+																<div class="form-group">
+																	<a href="#" class="text-secondary js-btn-remove" data-deletes="#cp-row-parent-1" title="Quitar propuesta">
+																		<span class="fa-stack fa-sm">
+																			<i class="fa fa-circle-thin fa-stack-2x"></i>
+																			<i class="fa fa-minus fa-stack-1x"></i>
+																		</span>
+																	</a>
+																</div> <!-- .form-group -->
+															</div> <!-- .col-md-1 -->
+														</div> <!-- .row -->
+													</div> <!-- .col-md-12 -->
+												</div>
+											</fieldset>
+										</div>
+>>>>>>> 8ce2ea730beccd17cebfe34cc278fea5f1a10d45
 									</div> <!-- /.tab-pane -->
 									<div class="tab-pane fade" id="dcritica" aria-labelledby="dcritica-tab" role="tabpanel">
 										<h2 class="text-center">Cr&iacute;tica</h2>
@@ -206,7 +357,11 @@
 															$gen_nombre = $genero;
 															$has_genre = in_array( $genero, $generos_peli );
 														?>
+<<<<<<< HEAD
 														<div class="col-md-3">
+=======
+														<div class="col-3">
+>>>>>>> 8ce2ea730beccd17cebfe34cc278fea5f1a10d45
 															<div class="form-check">
 																<label class="form-check-label">
 																	<input type="checkbox" name="generos[]" class="form-check-input" value="<?php echo $gen_nombre; ?>" <?php if( $has_genre ) echo "checked"; ?>>
@@ -236,7 +391,11 @@
 														$tem_nombre = $tematica;
 														$has_tem = in_array( $tematica, $tematicas_peli );
 													 ?>
+<<<<<<< HEAD
 													<div class="col-md-3">	
+=======
+													<div class="col-3">	
+>>>>>>> 8ce2ea730beccd17cebfe34cc278fea5f1a10d45
 														<div class="form-check">
 															<label class="form-check-label">
 																<input type="checkbox" value="<?php echo $tem_nombre; ?>" name="tematicas[]" class="form-check-input" <?php if( $has_tem ) echo "checked"; ?>>
@@ -252,7 +411,11 @@
 									</div> <!-- /.tab-pane -->
 									<div class="tab-pane fade" id="dlugares" aria-labelledby="dlugares-tab" role="tabpanel">
 										<h2 class="text-center">Locaciones</h2>
+<<<<<<< HEAD
 										<h5>Nueva entrada
+=======
+										<h5>Nueva locaci&oacute;n
+>>>>>>> 8ce2ea730beccd17cebfe34cc278fea5f1a10d45
 											<small class="icon-wrap">
 												<a href="#" class="js-add-new text-secondary" data-adds="lug" id="lug-btn-add" title="A&ntilde;adir nuevo">
 													<span class="fa-stack fa-sm">
@@ -304,9 +467,18 @@
 									<div class="tab-pane fade" id="dreparto" aria-labelledby="dreparto-tab" role="tabpanel">
 										<h2 class="text-center">Reparto</h2>
 									</div> <!-- #dreparto -->
+<<<<<<< HEAD
 							</div> <!-- /.tab-content -->						
 						</div> <!-- /.card-body -->
 						<div class="card-footer text-center">
+=======
+									<div class="tab-pane fade" id="dgadapt" aria-labelledby="dgadapt-tab" role="tabpanel">
+										<h2 class="text-center">Guiones Adaptados</h2>
+									</div> <!-- #dgadapt -->
+							</div> <!-- /.tab-content -->						
+						</div> <!-- /.card-body -->
+						<div class="card-footer">
+>>>>>>> 8ce2ea730beccd17cebfe34cc278fea5f1a10d45
 							<button class="btn btn-light mx-auto cursor-pointer" name="sub_props" type="submit">Enviar propuestas</button>
 						</div>
 					</form> <!-- #editar-peli-form -->

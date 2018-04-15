@@ -27,7 +27,11 @@
 			<?php endif; ?>
 		</div>
 		<div class="col-md-6 ml-md-5">
+<<<<<<< HEAD
 			<div class="card inner-shadow bg-dark border border-light">
+=======
+			<div class="card bg-dark border border-light">
+>>>>>>> 8ce2ea730beccd17cebfe34cc278fea5f1a10d45
 				<h3 class="card-header text-center">Sin&oacute;psis</h3>
 				<div class="card-body text-justify">
 					<?php the_content(); ?>
