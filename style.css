@@ -1,0 +1,277 @@
+/*
+Theme Name: Tema SCRIPT
+Author: Tomás El Fakih
+Description: Tema de Wordpress para el proyecto Script: La Base de Datos del Cine Venezolano.
+*/
+
+/* Todo el tema de reinicio de las propiedades es manejado por Bootstrap. Solo nos interesa darle estilos a la página. */
+
+/*Edicion del Cuerpo de pagina*/
+
+body {
+	
+	color: white; /* Que los textos sean blancos por defecto */
+}
+.bghack::before {
+	content: ' ';
+	position: fixed;
+	width: 100%;
+	height: 100%;
+	top: 0; left: 0;
+	background: url("assets/Strip5.jpg") no-repeat center center;
+	background-color: #000;
+	/*background-position: top right; /*arriba a la derecha*/
+	/*background-repeat: repeat;   que no se repita el fondo*/
+	background-size: cover;
+	will-change: transform;
+	z-index: -1;
+}
+.text-shadow{
+	text-shadow: black 0.1em 0.1em 0.2em; /* Que los textos tengan la sombrita por defecto */
+}
+
+.box-shadow{
+	box-shadow: black 0.1em 0.1em 0.2em;
+}
+.inner-shadow{
+	-webkit-box-shadow: inset 10px 0px 151px -5px rgba(0,0,0,0.75);
+	-moz-box-shadow: inset 10px 0px 151px -5px rgba(0,0,0,0.75);
+	box-shadow: inset 10px 0px 151px -5px rgba(0,0,0,0.75);
+}
+
+.no-shadow {
+	text-shadow:none;
+	box-shadow: none;
+}
+
+.cursor-pointer {
+	cursor: pointer;
+}
+
+.cursor-pointer:disabled {
+	cursor: not-allowed;
+}
+
+/* Margen a los row */
+
+.row {
+	margin: 10px 0;
+}
+/* Estilos del navbar */
+nav.navbar {
+	border-radius: 7px;
+}
+
+/*Inicio footer*/
+
+.footer {
+background-color: #222;
+-webkit-border-radius: 20px;
+border-radius: 20px;
+}
+
+.footer-top {
+	padding: 20px;
+}
+
+ul.footer-nav {
+	display: inline-block;
+	float: none !important;
+	text-align: center;
+	margin-top: 10px;
+}
+
+ul.footer-nav li:first-child {
+	margin-left: 0;
+}
+
+
+.alineacionFoot{
+	float: left;
+	margin-left: 15px;
+}
+
+ul.footer-nav li a {
+	display: inline-block;
+	text-transform: uppercase;
+	text-decoration: none;
+	transition: all 0.2s ease-in-out;
+	-moz-transition: all 0.2s ease-in-out;
+	-webkit-transition: all 0.2s ease-in-out;
+	-o-transition: all 0.2s ease-in-out;
+}
+
+@media (max-width: 991px){
+	.copyright-section {
+		text-align: center;
+	}
+}
+
+.copyright-section {
+	padding: 15px 0;
+	font-size: 11px;
+	letter-spacing: 0.5px;
+	border-top: 1px solid rgba(255,255,255,.06);
+}
+
+.footer-widget-map{
+	background-image: url('assets/map.png');
+}
+
+/*Fin footer*/
+
+
+/*Estilos de la parte de las redes sociales*/
+
+.social {
+	position: fixed;
+	/* Hacemos que la posición en pantalla sea fija para que siempre se muestre en pantalla*/
+	right: 0;
+	/* Establecemos la barra en la izquierda */
+	top: 300px;
+	/* Bajamos la barra 200px de arriba a abajo */
+	z-index: 999999999;
+	/* Utilizamos la propiedad z-index para que no se superponga algún otro elemento como sliders, galerías, etc */
+}
+.social ul {
+	list-style: none;
+}
+.social ul li a {
+	display: inline-block;
+	color: #fff;
+	background: #000;
+	padding: 10px 15px;
+	text-decoration: none;
+	-webkit-transition: all 500ms ease;
+	-o-transition: all 500ms ease;
+	transition: all 500ms ease;
+	/*Establecemos una transición a todas las propiedades */
+}
+.social ul li .icon-facebook {
+	background: #3b5998;
+}
+
+.social ul li .icon-twitter {
+	background: #00abf0;
+}
+.social ul li .icon-youtube {
+	background: #bb0000;
+}
+.social ul li .icon-instagram {
+	background: #125688;
+}
+.social ul li .icon-mail {
+	background: #666666;
+}
+.social ul li a:hover {
+	background: #000;
+	/* Cambiamos el fondo cuando el usuario pase el mouse */
+	padding: 20px 15px 15px 15px;
+	/* Hacemos mas grande el espacio cuando el usuario pase el mouse */
+}
+
+.Margen {
+	/*padding: 0px 20px 20px 20px;*/
+	margin: 0px 20px 20px 20px;
+}
+
+
+/*Estilos de los modales*/
+.modal-content {
+	background-color:#222;
+}
+
+/* Estilos del Menú de películas */
+
+/* Póster de la película (móvil) */
+@media screen and (max-width: 767px){
+	.poster {
+			width: 100%;
+			margin-bottom: 10%;
+	}
+}
+
+/* Título de la película */
+.pel-titulo {
+	display: inline-block;
+	margin: 15px;
+	width: 100%;
+}
+/* Póster de la película (desktop) */
+.poster {
+	width: 100%;
+	height: 300px;
+}
+
+/* Estilos carousel de front-page.php */
+
+.carousel-control-prev, .carousel-control-next {
+	width: 5%;
+}
+
+.carousel-control-prev-icon, .carousel-control-next-icon {
+	position: absolute;
+}
+.carousel-control-prev-icon {
+	left: 0;
+}
+.carousel-control-next-icon{
+	right: 0;
+}
+
+
+input::-webkit-calendar-picker-indicator {
+	display: none;
+}
+
+legend {
+	width: auto;
+	padding: 0 10px;
+	margin-bottom: 0 !important;
+}
+fieldset { 
+    border-width: 2px;
+    border-style: groove;
+    border-color: threedface;
+    border-image: initial;
+    -webkit-padding-before: 0.35em;
+    -webkit-padding-start: 0.75em;
+    -webkit-padding-end: 0.75em;
+    -webkit-padding-after: 0.625em;
+	margin: initial;
+}
+.fieldset {
+	position: relative;
+	top: 0;
+}
+
+.autocomplete-suggestions { text-shadow:none; border: 1px solid #999; background: #FFF; overflow: auto; color:black; }
+.autocomplete-suggestion { padding: 2px 5px; white-space: nowrap; overflow: hidden; }
+.autocomplete-selected { background: #F0F0F0; }
+.autocomplete-suggestions strong { text-shadow:none;font-weight: bold; color: var(--success); }
+.autocomplete-group { padding: 2px 5px; }
+.autocomplete-group strong { display: block; border-bottom: 1px solid #000; }
+
+.page-numbers{
+	position: relative;
+    display: block;
+    padding: .5rem .75rem;
+    margin-left: -1px;
+    line-height: 1.25;
+    color: #007bff;
+    background-color: #fff;
+    border: 1px solid #dee2e6;	
+}
+
+.timeline-Widget{
+	-webkit-box-shadow: inset 10px 0px 151px -5px rgba(0,0,0,0.75);
+	-moz-box-shadow: inset 10px 0px 151px -5px rgba(0,0,0,0.75);
+	box-shadow: inset 10px 0px 151px -5px rgba(0,0,0,0.75);	
+	background-color: var(--dark);
+}
+
+.chosen-container, .chosen-container-single {
+	text-shadow:none;
+	box-shadow: none;
+	color: black!important;
+}
