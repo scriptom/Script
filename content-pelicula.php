@@ -11,8 +11,6 @@
 
 	$generos = wp_get_post_terms( get_the_ID(), 'genero' );
 	$tematicas = wp_get_post_terms( get_the_ID(), 'tematica' );
-	error_log(print_r($generos, true));
-	error_log(print_r($tematicas, true));
 	$fields = get_field_objects();
 
 	// error_log(print_r($fields, true));
