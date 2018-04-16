@@ -142,31 +142,56 @@ ul.footer-nav li a {
 	background: #000;
 	padding: 10px 15px;
 	text-decoration: none;
+	text-align: center;
 	-webkit-transition: all 500ms ease;
 	-o-transition: all 500ms ease;
 	transition: all 500ms ease;
 	/*Establecemos una transición a todas las propiedades */
 }
+.social ul li .fa {
+	min-width: 25px;
+	min-height: 25px;
+}
 .social ul li .icon-facebook {
 	background: #3b5998;
+}
+
+.social ul li .icon-facebook:hover .fa {
+	color: #3b5998;
 }
 
 .social ul li .icon-twitter {
 	background: #00abf0;
 }
+
+.social ul li .icon-twitter:hover .fa {
+	color: #00abf0;
+}
+
 .social ul li .icon-youtube {
 	background: #bb0000;
+}
+
+.social ul li .icon-youtube:hover .fa {
+	color: #bb0000;
 }
 .social ul li .icon-instagram {
 	background: #125688;
 }
+
+.social ul li .icon-instagram:hover .fa {
+	color: #125688;
+}
 .social ul li .icon-mail {
 	background: #666666;
 }
+.social ul li .icon-mail:hover .fa {
+	color: #666666;
+}
 .social ul li a:hover {
-	background: #000;
+	background: #fff;
 	/* Cambiamos el fondo cuando el usuario pase el mouse */
-	padding: 20px 15px 15px 15px;
+	/*padding: 20px 15px 15px 15px;*/
 	/* Hacemos mas grande el espacio cuando el usuario pase el mouse */
 }
 

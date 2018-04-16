@@ -16,7 +16,7 @@
 		             </a>
 	          	<?php endif; ?>
 		        </div> <!-- /.banner-cont -->
-		        <nav class="navbar navbar-expand-sm navbar-dark bg-dark mb-5" role="navigation" id="nav-menu">
+		        <nav class="navbar navbar-expand-sm inner-shadow navbar-dark bg-dark mb-5" role="navigation" id="nav-menu">
                 	<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
                     	<span class="navbar-toggler-icon"></span>
                   	</button>
@@ -51,3 +51,4 @@
                 </nav>
 		    </header>
 		    <main class="text-white">
+					<?php get_template_part( 'social' ); ?>
