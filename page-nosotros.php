@@ -1,4 +1,32 @@
-<?php get_header(); ?>
+<?php get_header();
+$map = get_field( 'mapa_nosotros' );
+add_action( 'wp_footer', function() use ($map){
+      ?>
+      <script type="text/javascript">
+        function myMap(){
+          var mapCanvas = document.getElementById('map');
+          var mapOptions = {
+            center: new google.maps.LatLng(<?php echo $map['lat'] ?>, <?php echo $map['lng'] ?>),
+            zoom: 16
+          };
+          var map = new google.maps.Map(mapCanvas, mapOptions);
+          var marker = new google.maps.Marker({
+            position: mapOptions.center,
+            animation: google.maps.Animation.BOUNCE
+          });
+          var infoWindow = new google.maps.InfoWindow({
+            content: '<?php echo $map['address'] ?>'
+          });
+          infoWindow.setMap(map);
+          marker.setMap(map);
+          marker.addListener('click', function(){
+            infoWindow.open(map, marker);
+          });
+        }
+      </script>
+      <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyB9M2yMye_X2PwmmlWFZCV1yMXfUZ3so3Q&callback=myMap"></script>
+<?php
+} ); ?>
 <?php if ( have_posts() ) : while ( have_posts() ) : the_post(); ?>
   <div class="row">
     <div class="col-md-6">
@@ -12,7 +40,9 @@
         <div class="col-md-12">
             <div class="card bg-dark border border-light">
                     <h4 class="card-header">Equipo CIC</h4>
-                <div class="card-body">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ea, eum?</div>
+                <div class="card-body">
+                  <?php the_field( 'texto_equipo_cic' ) ?>
+                </div>
             </div>
           </div>
         </div>
@@ -20,10 +50,9 @@
         <div class="col-md-12">
         <div class="card bg-dark border border-light">
             <h4 class="card-header">D&oacute;nde estamos</h4>
-            <div class="card-body">
-              <iframe width="100%" height="268" src="https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d15693.84792777164!2d-66.9758!3d10.4642!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x43cb2d8100a63708!2sUniversidad+Cat%C3%B3lica+Andr%C3%A9s+Bello!5e0!3m2!1ses!2sve!4v1468088657141"
-              frameborder="0" style="border:0" allowfullscreen>                
-              </iframe>
+            <div class="card-body text-dark">
+              <div id="map" style="height:300px">
+              </div>
             </div>
         </div>
       </div>
