@@ -2,7 +2,8 @@ jQuery.fn.manageRows = function (options) {
     options = jQuery.extend({
         row: this.children('[data-rowtab]').first(),
         action: 'append',
-        copy: false
+        copy: false,
+        callback: noop;
     }, options);
     var rowtab = options.row.data('rowtab');
     var counterInput = jQuery(`input[type=hidden][name~=${rowtab}_rowcount]`);
@@ -29,7 +30,7 @@ jQuery.fn.manageRows = function (options) {
         this.append(newRow);
         // if (counterInput.length)
         //     counterInput.val(numrows+1);
-        // else { 
+        // else {
         //     counterInput = jQuery("<input>", {
         //         type: 'hidden',
         //         name: `${rowtab}_rowcount`,
@@ -56,11 +57,11 @@ jQuery.fn.manageRows = function (options) {
                         jQuery(el).attr('data-deletes', (i,e)=>e.replace(/\d+/, ind + 1));
                 });
                 jQuery(el).attr('id', (i,v)=>v.replace(/\d+/, ind+1));
-                
+
             });
         // if (counterInput.length)
         //     counterInput.val(numrows-1);
-        // else { 
+        // else {
         //     counterInput = jQuery("<input>", {
         //         type: 'hidden',
         //         name: `${rowtab}_rowcount`,

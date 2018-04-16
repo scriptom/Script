@@ -815,6 +815,8 @@ function cvnzl_register_scripts() {
 	wp_enqueue_style( 'font-awesome', get_stylesheet_directory_uri() . '/css/font-awesome.css' );
 	wp_enqueue_style( 'bootstrap', "https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" );
 	wp_enqueue_style( 'site-styles', get_stylesheet_directory_uri(). '/style.css', array( 'bootstrap' ) );
+	wp_enqueue_style( 'jquery-ui', get_stylesheet_directory_uri(). '/css/jquery-ui.min.css' );
+	wp_enqueue_style( 'jquery-ui-theme-ui-darkness', get_stylesheet_directory_uri(). '/css/theme.css', array( 'jquery-ui' ) );
 
 	wp_enqueue_script( 'popper-js', 'https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js', array( 'jquery' ), '1.11.0', true );
 	wp_enqueue_script( 'bootstrap-js', 'https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js', array( 'jquery', 'popper-js' ), '4.0.0', true );
@@ -824,8 +826,8 @@ function cvnzl_register_scripts() {
 		wp_enqueue_script( 'search-form-js', get_stylesheet_directory_uri(). '/js/search-form.js', array( 'jquery', 'window-resize-js' ), '1.0' );
 	if ( is_edit_page() ) {
 		wp_enqueue_script( 'rowmanager', get_stylesheet_directory_uri(). '/js/managerows.js', array( 'jquery' ), '1.0' );
-		wp_enqueue_script( 'edit-movie-test-js', get_stylesheet_directory_uri(). '/js/edit-movie-test.js', array( 'jquery', 'rowmanager', 'autocomplete' ), '1.0' );
-		wp_enqueue_script('autocomplete', get_stylesheet_directory_uri().'/js/jquery.autocomplete.min.js', array('jquery'), '1.4.7');
+		wp_enqueue_script( 'edit-movie-test-js', get_stylesheet_directory_uri(). '/js/edit-movie-test.js', array( 'jquery', 'rowmanager', 'jquery-ui-autocomplete' ), '1.0' );
+		wp_enqueue_script( 'jquery-ui-autocomplete' );
 		// wp_enqueue_script( 'edit-movie-js', get_stylesheet_directory_uri(). '/js/edit-movie.js', array( 'jquery' ), '1.0' );
 		wp_localize_script('edit-movie-test-js', 'ah', array(
 			'ajaxurl' => admin_url( 'admin-ajax.php' )
@@ -976,23 +978,22 @@ add_filter( 'document_title_parts', 'cvnzl_custom_title', 10, 2 );
 add_action('wp_ajax_cvnzl_per_suggest', 'cvnzl_return_per_suggest');
 add_action('wp_ajax_nopriv_cvnzl_per_suggest', 'cvnzl_return_per_suggest');
 function cvnzl_return_per_suggest() {
-	$query = isset($_GET['query']) ? $_GET['query'] : '';
-	if ($query) {
+	$term = isset($_GET['term']) ? $_GET['term'] : '';
+	if ($term) {
 		global $wpdb;
 		$sql = "SELECT post_title AS nombre, ID FROM $wpdb->posts WHERE post_title LIKE '%s' AND post_type = %s";
-		$query = '%'.$query.'%';
-		$stmt = $wpdb->prepare($sql, $query, 'persona');
+		$term = '%'.$term.'%';
+		$stmt = $wpdb->prepare($sql, $term, 'persona');
 		$suggestions = $wpdb->get_results($stmt, ARRAY_A);
-		$response_obj = new stdClass();
-		foreach ($suggestions as $suggestion) {
-			if (!isset($response_obj->suggestions))
-				$response_obj->suggestions = array();
-
-			$per_id = get_post_meta($suggestion['ID'], '_per_database_id', true);
-			$response_obj->suggestions[] = array(
-				'value' => $suggestion['nombre'],
-				'data' => $per_id
-			);
+		$response_obj = array();
+		if ( ! empty( $suggestions ) ) {
+			foreach ( $suggestions as $suggestion ) {
+				$per_id = get_post_meta($suggestion['ID'], '_per_database_id', true);
+				$response_obj[] = array(
+					'label' => $suggestion['nombre'],
+					'value' => $per_id
+				);
+			}
 		}
 		echo json_encode($response_obj);
 	}

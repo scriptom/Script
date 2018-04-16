@@ -304,6 +304,42 @@
 									</div> <!-- #dlugares -->
 									<div class="tab-pane fade" id="dreparto" aria-labelledby="dreparto-tab" role="tabpanel">
 										<h2 class="text-center">Reparto</h2>
+										<h5>Nueva entrada
+											<small class="icon-wrap">
+												<a href="#" class="js-add-new text-secondary" data-adds="rep" id="rep-btn-add" title="A&ntilde;adir nuevo">
+													<span class="fa-stack fa-sm">
+														<i class="fa fa-circle-thin fa-stack-2x"></i>
+														<i class="fa fa-plus fa-stack-1x"></i>
+													</span>
+												</a>
+											</small>
+										</h5>
+										<div class="col-md-12" id="rep-container">
+											<div class="rep form-row justify-content-between" data-rowtab='rep' id="rep-row-parent-1">
+												<div class="col-md">
+													<div class="form-group">
+														<label for="rep-input-personaje-1">Personaje</label>
+														<input type="text" class="form-control" id="rep-input-personaje-1" name="rep-entries[0][personaje]">
+													</div>
+												</div>
+												<div class="col-md">
+													<div class="form-group">
+														<label for="rep-input-actor-1">Actor</label>
+														<input type="text" class="form-control" id="rep-input-actor-1" name="rep-entries[0][actor]">
+													</div>
+												</div>
+												<div class="col-1 align-self-end">
+													<div class="form-group">
+														<a href="#" class="text-secondary js-btn-remove" data-deletes="#rep-row-parent-1" title="Quitar propuesta">
+															<span class="fa-stack fa-sm">
+																<i class="fa fa-circle-thin fa-stack-2x"></i>
+																<i class="fa fa-minus fa-stack-1x"></i>
+															</span>
+														</a>
+													</div> <!-- .form-group -->
+												</div> <!-- .col-md-1 -->
+											</div>
+										</div>
 									</div> <!-- #dreparto -->
 							</div> <!-- /.tab-content -->
 						</div> <!-- /.card-body -->

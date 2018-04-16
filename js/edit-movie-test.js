@@ -19,15 +19,12 @@ jQuery(function($) {
         $(`#${$(event.delegateTarget).data('adds')}-container`).manageRows({action: 'append'});
 	});
 
-	$('.autocomplete-per').autocomplete({
-		serviceUrl: ah.ajaxurl,
-		params: {
-			action: 'cvnzl_per_suggest'
-		},
-		minChars: 2,
-		onSelect: selection => {
-			$(this).val(selection.value);
-			
+	$('.autocomplete').autocomplete({
+		source: ah.ajaxurl + '?action=cvnzl_per_suggest',
+		minLength: 2,
+		select: function(event, ui) {
+			event.preventDefault();
+			$(this).val(ui.item.label);
 		}
 	});
 });
