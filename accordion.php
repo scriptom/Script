@@ -26,6 +26,7 @@ $data_casas_prod = array_filter($fields, function($key){
     return $key === 'casas_productoras' || $key === 'financiamiento';
 }, ARRAY_FILTER_USE_KEY);
 
+error_log(print_r($data_taquilla, true));
 
 // Datos tecnicos de la pelicula (Titulo, sinopsis, recaudo, etc.)
 // $pelicula = cvnzl_get_movie_main_data( $dbid );
