@@ -3,7 +3,7 @@
 
 	$post_meta = get_post_meta( get_the_ID() );
 	$is_editor = is_user_logged_in() && current_user_can( 'edit_posts' );
-	if ( $is_editor ): 
+	if ( $is_editor ):
 		$edit_url = add_query_arg('edit', 1);
 		$edit_url = esc_url( $edit_url );
 		$edit_btn =	"<small><a href=\"{$edit_url}\" title=\"Editar ".get_the_title()."\"><i class=\"fa fa-edit text-secondary\"></i></a></small>";
@@ -16,7 +16,7 @@
 	$fields = get_field_objects();
 
 	// error_log(print_r($fields, true));
-?>	 
+?>
 <?php the_title( '<h1 class="text-center pel-titulo">', ($is_editor?"  ".$edit_btn:'').'</h1>', true ); ?>
 	<div class="row">
 		<div class="col-md-4">
@@ -27,11 +27,7 @@
 			<?php endif; ?>
 		</div>
 		<div class="col-md-6 ml-md-5">
-<<<<<<< HEAD
 			<div class="card inner-shadow bg-dark border border-light">
-=======
-			<div class="card bg-dark border border-light">
->>>>>>> 8ce2ea730beccd17cebfe34cc278fea5f1a10d45
 				<h3 class="card-header text-center">Sin&oacute;psis</h3>
 				<div class="card-body text-justify">
 					<?php the_content(); ?>
@@ -39,11 +35,11 @@
 				<?php if (!empty($generos) || !empty($tematicas)): ?>
 				<div class="card-footer">
 					<?php if (!empty($generos)) {
-						echo "G&eacute;neros: <span class='font-italic'>";				
+						echo "G&eacute;neros: <span class='font-italic'>";
 						foreach ($generos as $genero) {
 							if (!isset($gtxt)) $gtxt = array();
 
-							$gtxt[] = $genero->name; 
+							$gtxt[] = $genero->name;
 						}
 						echo implode(", ", $gtxt);
 						echo "</span><br>";
@@ -57,7 +53,7 @@
 					 	}
 					 	echo implode(", ", $ttxt);
 					 	echo "</span>";
-					 } 
+					 }
 
 					?>
 				</div>
@@ -70,4 +66,4 @@
 	</div> <!--row -->
 	<div class="row">
 		<!-- <?php get_template_part('extra-info'); ?> -->
-	</div> <!--row -->	
+	</div> <!--row -->

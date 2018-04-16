@@ -1,4 +1,4 @@
- <?php 
+ <?php
  global $dbid;
  global $fields;
 
@@ -48,7 +48,7 @@ function mostrar_msj_inexistente() {
 }
 ?>
 <div class="col-md-4 my-3">
-    <div class="card bg-dark border border-light">
+    <div class="card inner-shadow bg-dark border border-light">
 	    <h3 class="card-header">Ficha T&eacute;cnica</h3>
 	    <div class="card-body">
 	        <p class="card-text text-justify">En este campo se re&uacute;nen los aspectos b&aacute;sicos que describen una producci&oacute;n cinematogr&aacute;fica, as&iacute; como los nombres de las personas encargadas de cada uno tanto en los aspectos art&iacute;sticos como t&eacute;cnicos,
@@ -56,7 +56,7 @@ function mostrar_msj_inexistente() {
 	        <!-- Acordeón perteneciente a Ficha Tecnica -->
 	    </div> <!-- /.card-body -->
         <div id="accordion" role="tablist">
-            <div class="card bg-dark m-1 border border-light">
+            <div class="card box-shadow bg-dark m-1 border border-light">
                 <h5 class="card-header mb-0 cursor-pointer" data-toggle="collapse" data-parent="#accordion" data-target="#acordeonDirectores">Directores</h5>
                 <div id="acordeonDirectores" class="collapse" role="tabpanel">
                     <div class="card-body">
@@ -68,8 +68,8 @@ function mostrar_msj_inexistente() {
                             		<?php foreach ( $data['value'] as $encargado ): ?>
                             			<li><a href="<?php echo(get_permalink( $encargado->ID ) ); ?>" class="text-white"><?php echo trim( $encargado->post_title ); ?></a></li>
                             		<?php endforeach; ?>
-                            	</ul> 	
-                            <?php else: ?> 
+                            	</ul>
+                            <?php else: ?>
                                 <a href="<?php echo get_permalink( $data['value'][0]->ID ); ?>" class="text-white" >
 	                                <?php echo trim( $data['value'][0]->post_title ); ?>
 	                            </a>
@@ -81,7 +81,7 @@ function mostrar_msj_inexistente() {
                     </div> <!-- /.card-body -->
                 </div> <!-- /.collapse -->
             </div> <!-- /.card -->
-            <div class="card bg-dark m-1 border border-light">
+            <div class="card box-shadow bg-dark m-1 border border-light">
                 <h5 class="card-header mb-0 cursor-pointer" data-parent="#accordion" data-target="#acordeonAsistentes" data-toggle="collapse">Asistentes</h5>
                 <div id="acordeonAsistentes" class="card-collapse collapse">
                 	<div class="card-body">
@@ -111,7 +111,7 @@ function mostrar_msj_inexistente() {
                     </div>
                 </div>
             </div>
-            <div class="card bg-dark m-1 border border-light">
+            <div class="card box-shadow bg-dark m-1 border border-light">
                 <h5 class="card-header mb-0 cursor-pointer" data-toggle="collapse" data-parent="#accordion" data-target="#acordeonEfectos">Efectos</h5>
                 <div id="acordeonEfectos" class="card-collapse collapse">
                     <div class="card-body">
@@ -143,7 +143,7 @@ function mostrar_msj_inexistente() {
     </div> <!-- /.card -->
 </div> <!-- /.col-md-4 -->
 <div class="col-md-4 my-3">
-	<div class="card bg-dark border border-light">
+	<div class="card inner-shadow bg-dark border border-light">
 		<h3 class="card-header">Reparto</h3>
 		<div class="card-body">
 			<p class="card-text text-justify">En este campo se contempla o bien el elenco de actores que encarnan los personajes de un gui&oacute;n de ficci&oacute;n, o las personas cuyos testimonios narran o explican los aspectos de una historia narrada
@@ -151,7 +151,7 @@ function mostrar_msj_inexistente() {
 		</div>
 		<!-- Arcordeon perteneciente a reparto -->
 		<div id="accordion2" role="tablist">
-			<div class="card bg-dark m-1 border border-light">
+			<div class="card box-shadow bg-dark m-1 border border-light">
 				<h5 class="card-header mb-0 cursor-pointer" data-toggle="collapse" data-parent="#accordion2" data-target="#acordeonPersonajes">Personajes</h5>
 				<div id="acordeonPersonajes" class="card-collapse collapse">
 					<div class="card-body">
@@ -160,16 +160,16 @@ function mostrar_msj_inexistente() {
 						<span>
 							<a class="text-white" href="<?php echo( get_search_link( $personaje['artista'] ) ); ?>">
 								<?php echo trim( $personaje['artista'] ); ?>
-							</a> - 
+							</a> -
 							<i><?php echo trim( $personaje['personaje'] ); ?></i>
 						</span>
 						<br>
 						<?php endforeach; ?>
 					<?php else: mostrar_msj_inexistente(); endif; ?>
 					</div> <!-- /.card-body -->
-				</div> <!-- /.card-collapse --> 
+				</div> <!-- /.card-collapse -->
 			</div>
-			<div class="card bg-dark m-1 border border-light">
+			<div class="card box-shadow bg-dark m-1 border border-light">
 				<h5 class="card-header mb-0 cursor-pointer" data-toggle="collapse" data-parent="#accordion2" data-target="#acordeonExtras">Extras</h5>
 				<div id="acordeonExtras" class="card-collapse collapse">
 					<div class="card-body">
@@ -189,7 +189,7 @@ function mostrar_msj_inexistente() {
 	</div> <!-- /.card -->
 </div> <!-- /.col-md-4 -->
 <div class="col-md-4 my-3">
-    <div class="card bg-dark border border-light">
+    <div class="card inner-shadow bg-dark border border-light">
             <h3 class="card-header">Data</h3>
             <div class="card-body">
 	            <p class="card-text text-justify">En este campo hay recopilada informaci&oacute;n relevante sobre la pel&iacute;cula, tanto desde el punto de vista de su factura (p&oacute;ster, foto fija, locaciones empleadas), como de su desempeño socio-econ&oacute;mico (monto de inversi&oacute;n, cantidad de espectadores, recaudaci&oacute;n en taquilla) o de su apreciaci&oacute;n cinematográfica (cr&iacute;tica).</p>
@@ -203,12 +203,12 @@ function mostrar_msj_inexistente() {
                             <?php if (1===0): ?>
                             <a class="text-white" href="<?php echo( get_search_link( $query ) ); ?>">"La locura de pelicula del año"</a>
                             <br/>
-                                
+
                             <?php else: mostrar_msj_inexistente(); endif;?>
                         </div>
                     </div>
                 </div>
-                <div class="card bg-dark m-1 border border-light">
+                <div class="card box-shadow bg-dark m-1 border border-light">
                     <h5 class="card-header mb-0 cursor-pointer" data-toggle="collapse" data-parent="#accordion3" data-target="#acordeonLocaciones">Locaciones</h5>
                     <div id="acordeonLocaciones" class="card-collapse collapse">
                         <div class="card-body">
@@ -219,23 +219,23 @@ function mostrar_msj_inexistente() {
                         </div>
                     </div>
                 </div>
-                <div class="card bg-dark m-1 border border-light">
+                <div class="card box-shadow bg-dark m-1 border border-light">
                     <h5 class="card-header mb-0 cursor-pointer" data-toggle="collapse" data-parent="#accordion3" data-target="#acordeonTaquilla">Taquilla</h5>
                     <div id="acordeonTaquilla" class="card-collapse collapse">
                         <div class="card-body">
-                            <?php 
-                            if ( ! empty( $data_taquilla ) ): 
+                            <?php
+                            if ( ! empty( $data_taquilla ) ):
                                 $empties = 0;
                             foreach ( $data_taquilla as $field_name => $field_data ) :
                                 if ($field_data['value']) :
                                     echo $field_data["label"].": ". $field_data["value"]."&nbsp;".$field_data["append"];
                                     echo "<br>";
-                                else: 
+                                else:
                                     $empties++;
                                 endif;
                             endforeach;
                             if ($empties === 4) : mostrar_msj_inexistente(); endif;
-                            else: mostrar_msj_inexistente(); 
+                            else: mostrar_msj_inexistente();
                             endif; ?>
                         </div>
                     </div>

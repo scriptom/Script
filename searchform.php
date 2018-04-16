@@ -8,7 +8,6 @@
 				<option value="any">Todos</option>
 				<option value="pelicula">Pel&iacute;culas</option>
 				<option value="persona">Personas</option>
-				<option value="post">Noticias</option>
 			</select>
 			<button type="submit" class="search-submit form-control btn btn-secondary cursor-pointer col-sm-1">Buscar</button>
 		</div>

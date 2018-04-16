@@ -10,9 +10,8 @@
 		<div class="card-body">
 			<p>Introduzca abajo el t&eacute;rmino que desee buscar.
 			Puede buscar
-			<a href="#">pel&iacute;culas</a>,
-			<a href="#">personas</a> y
-			<a href="#">noticias</a>
+			<a href="<?php echo home_url().'/?s=&post_type=pelicula'?>">pel&iacute;culas</a> y
+			<a href="<?php echo home_url().'/?s=&post_type=persona'?>">personas</a>
 			</p>
 		<?php get_search_form( true ); ?>
 		</div>
