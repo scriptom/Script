@@ -88,7 +88,6 @@
 											</div> <!-- /.col-md-6 -->
 										</div> <!-- /.row -->
 									</div> <!-- /.tab-pane -->
-<<<<<<< HEAD
 									<div class="tab-pane fade" id="dft-casas" aria-labelledby="dft-casas" role="tabpanel">
 										<h2 class="text-center mb-3">Ficha T&eacute;cnica: Organizaciones</h2>
 										<h5 class="d-block">

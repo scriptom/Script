@@ -1,5 +1,5 @@
 </main>
-<footer class="footer container">
+<footer class="footer inner-shadow container">
   <div class="footer-top">
     <div class="row">
       <div class="col-md-3">
