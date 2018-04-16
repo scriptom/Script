@@ -998,3 +998,8 @@ function cvnzl_return_per_suggest() {
 	}
 	wp_die();
 }
+add_action( 'acf/init', 'cvnzl_google_api_key' );
+function cvnzl_google_api_key() {
+	if ( function_exists( 'acf_update_setting' ) )
+		acf_update_setting( 'google_api_key', 'AIzaSyB9M2yMye_X2PwmmlWFZCV1yMXfUZ3so3Q' );
+}
