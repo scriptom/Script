@@ -5,7 +5,7 @@
 	// } else {
 	// 	wp_die( 'Se requiere el plugin de Cine Venezolano para acceder a esta pagina', 'No se encontro el plugin de Cine Venezolano' );
 	// }
-	
+
 	// error_log($action);
 	// Si no es minimo contributor, no tiene acceso a esta pagina. Mostremos mensaje
 	if ( !current_user_can( 'edit_posts' ) ) :
@@ -19,7 +19,7 @@
 		'meta_key' 	  => '_per_database_id',
 		'orderby'     => 'title'
 	);
-	
+
 	$query2 = get_posts( $args2 );
 
 	$cargos = cvnzl_get_guiones();
@@ -34,7 +34,7 @@
 				<?php if ( has_post_thumbnail() ): ?>
 					<img src="<?php the_post_thumbnail_url( 'full' ); ?>" title="<?php the_title_attribute(); ?>" alt="Poster: <?php the_title_attribute(); ?>" class="img-fluid poster rounded">
 				<?php else: ?>
-					<img src="https://placehold.it/350x200" title="<?php the_title_attribute(); ?>" alt="placeholder" class="img-fluid poster rounded">
+					<img src="holder.js/350x200" title="<?php the_title_attribute(); ?>" alt="placeholder" class="img-fluid poster rounded">
 				<?php endif; ?>
 			</div> <!-- /.col-md-4 -->
 		</div> <!-- /.row -->
@@ -50,7 +50,7 @@
 							<a href="#dlugares" class="nav-item nav-link" id="dlugares-tab" role="tab" data-toggle="tab" aria-controls="dlugares" aria-selected="false">Lugares y Locaciones</a>
 							<a href="#dpendiente" class="nav-item nav-link" id="dpendiente-tab" role="tab" data-toggle="tab" aria-controls="dpendiente" aria-selected="false">Pendiente</a>
 
-						</nav> <!-- /#cambios-tabs --> 
+						</nav> <!-- /#cambios-tabs -->
 					</div>
 					<div class="card-body">
 						<form id="editar-peli-form">
@@ -150,17 +150,17 @@
 											</div> <!-- /.col-md-6 -->
 											<div class="col-md-6">
 												<div class="form-group" id="lista-generos">
-													<?php 
+													<?php
 														$generos = cvnzl_get_movie_genres();
 														$cols = 0;
 														$generos_peli = cvnzl_get_movie_genres( get_post_meta( get_the_ID(), '_database_id', true ) );
-													
-														foreach ( $generos as $genero ) : 
+
+														foreach ( $generos as $genero ) :
 															$gen_nombre = $genero;
 															$has_genre = in_array( $genero, $generos_peli );
 														?>
 														<?php if (!($cols % 3)): ?>
-														<div class="row">					
+														<div class="row">
 														<?php endif; ?>
 														<div class="col-md-4">
 															<div class="form-check">
@@ -173,7 +173,7 @@
 														<?php $cols++; if (!($cols % 3) or $cols == count($generos)): ?>
 														</div>
 														<?php endif; ?>
-														<?php endforeach; ?>						
+														<?php endforeach; ?>
 												</div> <!-- /#lista-generos -->
 											</div> <!-- /.col-md-6 -->
 										</div>	<!-- /.row -->
@@ -184,7 +184,7 @@
 											</div>
 											<div class="col-md-6">
 												<div class="form-group" id="lista-tematicas">
-													<?php 
+													<?php
 													$tematicas = cvnzl_get_movie_themes();
 													$tematicas_peli = cvnzl_get_movie_themes( get_post_meta( get_the_ID(), '_database_id', true ) );
 
@@ -196,7 +196,7 @@
 													<?php if (!($cols % 3)): ?>
 													<div class="row">
 													<?php endif; ?>
-													<div class="col-md-4">	
+													<div class="col-md-4">
 														<div class="form-check">
 															<label class="form-check-label">
 																<input type="checkbox" value="<?php echo $tem_nombre; ?>" name="tematicas[]" class="form-check-input" <?php if( $has_tem ) echo "checked"; ?>>
@@ -266,7 +266,7 @@
 									<div class="tab-pane fade" id="dpendiente" aria-labelledby="dpendiente-tab" role="tabpanel">
 										<h2 class="text-center">Pendiente</h2>
 									</div> <!-- #dpendiente -->
-							</div> <!-- /.tab-content -->						
+							</div> <!-- /.tab-content -->
 						</div> <!-- /.card-body -->
 						<div class="card-footer">
 							<button class="btn btn-light mx-auto cursor-pointer" name="sub_props" type="submit">Enviar propuestas</button>

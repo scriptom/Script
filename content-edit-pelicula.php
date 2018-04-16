@@ -27,7 +27,7 @@
 				<?php if ( has_post_thumbnail() ): ?>
 					<img src="<?php the_post_thumbnail_url( 'full' ); ?>" title="<?php the_title_attribute(); ?>" alt="Poster: <?php the_title_attribute(); ?>" class="img-fluid poster rounded">
 				<?php else: ?>
-					<img src="https://placehold.it/350x200" title="<?php the_title_attribute(); ?>" alt="placeholder" class="img-fluid poster rounded">
+					<img src="holder.js/350x200" title="<?php the_title_attribute(); ?>" alt="placeholder" class="img-fluid poster rounded">
 				<?php endif; ?>
 			</div> <!-- /.col-md-4 -->
 		</div> <!-- /.row -->

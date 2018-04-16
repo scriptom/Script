@@ -23,7 +23,7 @@
 			<?php if ( has_post_thumbnail() ) :
 					the_post_thumbnail( 'post-thumbnail', array( 'class' => 'img-fluid poster rounded' ) );
 			 	  else: ?>
-			<img src="https://placehold.it/350x200" alt="placeholder" class="img-fluid poster rounded">
+			<img src="holder.js/350x400" alt="placeholder" class="img-fluid poster rounded">
 			<?php endif; ?>
 		</div>
 		<div class="col-md-6 ml-md-5">
