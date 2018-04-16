@@ -9,7 +9,7 @@ Description: Tema de Wordpress para el proyecto Script: La Base de Datos del Cin
 /*Edicion del Cuerpo de pagina*/
 
 body {
-	
+
 	color: white; /* Que los textos sean blancos por defecto */
 }
 .bghack::before {
@@ -27,7 +27,7 @@ body {
 	z-index: -1;
 }
 .text-shadow{
-	text-shadow: black 0.1em 0.1em 0.2em; /* Que los textos tengan la sombrita por defecto */
+	text-shadow: black 0.1em 0.1em 0.2em;
 }
 
 .box-shadow{
@@ -229,7 +229,7 @@ legend {
 	padding: 0 10px;
 	margin-bottom: 0 !important;
 }
-fieldset { 
+fieldset {
     border-width: 2px;
     border-style: groove;
     border-color: threedface;
@@ -260,13 +260,13 @@ fieldset {
     line-height: 1.25;
     color: #007bff;
     background-color: #fff;
-    border: 1px solid #dee2e6;	
+    border: 1px solid #dee2e6;
 }
 
 .timeline-Widget{
 	-webkit-box-shadow: inset 10px 0px 151px -5px rgba(0,0,0,0.75);
 	-moz-box-shadow: inset 10px 0px 151px -5px rgba(0,0,0,0.75);
-	box-shadow: inset 10px 0px 151px -5px rgba(0,0,0,0.75);	
+	box-shadow: inset 10px 0px 151px -5px rgba(0,0,0,0.75);
 	background-color: var(--dark);
 }
 

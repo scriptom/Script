@@ -10,7 +10,7 @@
  $has_active = false;
 ?>
 <?php if ( !empty( $recent_movies ) ): ?>
-  
+
   <div id="carousel-pelis" class="carousel slide" data-ride="carousel">
     <div class="carousel-inner" role="listbox">
 	  <?php for ( $counter = 0; $counter <= 12; ): // $counter es un controlador de iteraciones. Se usa 12 por ser el número de posts que traemos de WordPress ?>
@@ -22,10 +22,10 @@
                 <?php endif; ?>
                 <div class="col-md-3 d-md-block <?php if ($counter % 4 !== 0) echo 'd-none' ?>">
                   <a href="<?php echo get_the_permalink( $movie['ID'] ); ?>" title="<?php echo get_the_title( $movie['ID'] ); ?>">
-                    <?php if ( has_post_thumbnail() ) :?>
-                      <img src="<?php echo get_the_post_thumbnail( $movie['ID'], 'thumbnail' ) ?>" title="<?php echo get_the_title( $movie['ID'] ); ?>" alt="<?php echo get_the_title( $movie['ID'] ); ?>"></a>
+                    <?php if ( has_post_thumbnail( $movie ) ) :?>
+                      <img src="<?php echo get_the_post_thumbnail_url( $movie['ID'], 'thumbnail' ) ?>" title="<?php echo get_the_title( $movie['ID'] ); ?>" alt="<?php echo get_the_title( $movie['ID'] ); ?>"></a>
                     <?php else: ?>
-                      <img src="https://placehold.it/150x250" alt="DummyImg"></a>
+                      <img src="holder.js/150x250" alt="DummyImg"></a>
                     <?php endif; $counter++; ?>
                 </div>
           <?php if ( $counter % 4 === 0 ): // Hacer el mismo check de múltiplos de 4 para cerrar las filas ?>

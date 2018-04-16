@@ -819,11 +819,12 @@ function cvnzl_register_scripts() {
 	wp_enqueue_script( 'popper-js', 'https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js', array( 'jquery' ), '1.11.0', true );
 	wp_enqueue_script( 'bootstrap-js', 'https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js', array( 'jquery', 'popper-js' ), '4.0.0', true );
 	wp_enqueue_script( 'window-resize-js', get_stylesheet_directory_uri(). '/js/window-resize.js', array( 'jquery' ), '1.0' );
+	wp_enqueue_script( 'holder', get_stylesheet_directory_uri(). '/js/holder.min.js' );
 	if ( is_page( 'busqueda' ) )
 		wp_enqueue_script( 'search-form-js', get_stylesheet_directory_uri(). '/js/search-form.js', array( 'jquery', 'window-resize-js' ), '1.0' );
 	if ( is_edit_page() ) {
 		wp_enqueue_script( 'rowmanager', get_stylesheet_directory_uri(). '/js/managerows.js', array( 'jquery' ), '1.0' );
-		wp_enqueue_script( 'edit-movie-test-js', get_stylesheet_directory_uri(). '/js/edit-movie-test.js', array( 'jquery', 'rowmanager', 'autocomplete' ), '1.0' );	
+		wp_enqueue_script( 'edit-movie-test-js', get_stylesheet_directory_uri(). '/js/edit-movie-test.js', array( 'jquery', 'rowmanager', 'autocomplete' ), '1.0' );
 		wp_enqueue_script('autocomplete', get_stylesheet_directory_uri().'/js/jquery.autocomplete.min.js', array('jquery'), '1.4.7');
 		// wp_enqueue_script( 'edit-movie-js', get_stylesheet_directory_uri(). '/js/edit-movie.js', array( 'jquery' ), '1.0' );
 		wp_localize_script('edit-movie-test-js', 'ah', array(
@@ -902,7 +903,7 @@ function cnvzl_register_widgets()
 if ( !function_exists( 'get_movie_poster_url' ) ) {
 	function get_movie_poster_url( $title = '' ) {
 		if ( empty( $title ) ) return;
-		
+
 		global $wpdb;
 			$ruta_img = $wpdb->get_var( $wpdb->prepare( "SELECT pel_ruta_ima_poster FROM peliculas WHERE pel_titulo = %s", $title ) );
 			$ruta_img = trim( html_entity_decode( $ruta_img ), " \t\n\r\0\x0B\xC2\xA0" );
@@ -967,7 +968,7 @@ add_action( 'query_vars', 'cvnzl_add_query_vars' );
 
 function cvnzl_custom_title( $title_parts ) {
 	if ( is_edit_page() ) {
-		$title_parts['title'] = "Editando: ".$title_parts['title'];		
+		$title_parts['title'] = "Editando: ".$title_parts['title'];
 	}
 	return $title_parts;
 }
@@ -984,15 +985,15 @@ function cvnzl_return_per_suggest() {
 		$suggestions = $wpdb->get_results($stmt, ARRAY_A);
 		$response_obj = new stdClass();
 		foreach ($suggestions as $suggestion) {
-			if (!isset($response_obj->suggestions)) 
+			if (!isset($response_obj->suggestions))
 				$response_obj->suggestions = array();
-			
+
 			$per_id = get_post_meta($suggestion['ID'], '_per_database_id', true);
 			$response_obj->suggestions[] = array(
 				'value' => $suggestion['nombre'],
 				'data' => $per_id
 			);
-		} 
+		}
 		echo json_encode($response_obj);
 	}
 	wp_die();
