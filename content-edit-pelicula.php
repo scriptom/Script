@@ -316,16 +316,34 @@
 										</h5>
 										<div class="col-md-12" id="rep-container">
 											<div class="rep form-row justify-content-between" data-rowtab='rep' id="rep-row-parent-1">
-												<div class="col-md">
+												<div class="col-md-3">
+													<div class="form-group">
+														<div class="form-check">
+															<input type="radio" checked value="persona" id="rep-tipo-persona-1" name="rep-entries[0][tipo_rep]" class="form-check-input">
+															<label for="rep-tipo-persona-1" class="form-check-label">Personaje Ficticio</label>
+														</div>
+														<div class="form-check">
+															<input type="radio" value="grupo" class="form-check-input" id="rep-tipo-grupo-1" name="rep-entries[0][tipo_rep]">
+															<label for="rep-tipo-grupo-1" class="form-check-label">Grupo de personas</label>
+														</div>
+													</div>
+												</div>
+												<div class="col-md persona-group">
 													<div class="form-group">
 														<label for="rep-input-personaje-1">Personaje</label>
 														<input type="text" class="form-control" id="rep-input-personaje-1" name="rep-entries[0][personaje]">
 													</div>
 												</div>
-												<div class="col-md">
+												<div class="col-md persona-group">
 													<div class="form-group">
 														<label for="rep-input-actor-1">Actor</label>
 														<input type="text" class="form-control" id="rep-input-actor-1" name="rep-entries[0][actor]">
+													</div>
+												</div>
+												<div class="col-md grupo-group" style="display:none">
+													<div class="form-group">
+														<label for="rep-input-grupo-1">Nombre del grupo</label>
+														<input type="text" class="form-control" id="rep-input-grupo-1" name="rep-entries[0][grupo]">
 													</div>
 												</div>
 												<div class="col-1 align-self-end">
