@@ -16,8 +16,28 @@ jQuery(function($) {
 	});
 	$( ".js-add-new" ).click( ( event ) => {
         event.preventDefault();
-        $(`#${$(event.delegateTarget).data('adds')}-container`).manageRows({action: 'append'});
+        $(`#${$(event.delegateTarget).data('adds')}-container`).manageRows({
+					action: 'append',
+					callback: function($newRow, index) {
+						if (!$newRow.find('input[name$="tipo_rep"]')) {
+							return;
+						}
+						let $radios = $('input[name$="tipo_rep"]');
+						$radios.on('change', toggleGroups);
+						// $radios.change();
+					}
+
+				});
 	});
+
+	let $radios = $('input[name$="[tipo_rep]"]');
+	$radios.on('change', toggleGroups);
+	function toggleGroups(event){
+		let value = event.target.value;
+		let $row = $(event.target).parents('.rep');
+		$row.find(`.${value}-group`).toggle(true).siblings(`[class$=group]:not('.${value}-group')`).toggle(false);
+	}
+	// $radios.change();
 
 	$('.autocomplete').autocomplete({
 		source: ah.ajaxurl + '?action=cvnzl_per_suggest',

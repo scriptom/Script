@@ -2,8 +2,7 @@ jQuery.fn.manageRows = function (options) {
     options = jQuery.extend({
         row: this.children('[data-rowtab]').first(),
         action: 'append',
-        copy: false,
-        callback: noop;
+        callback: jQuery.noop()
     }, options);
     var rowtab = options.row.data('rowtab');
     var counterInput = jQuery(`input[type=hidden][name~=${rowtab}_rowcount]`);
@@ -11,13 +10,13 @@ jQuery.fn.manageRows = function (options) {
                 : options.row.parent().children(options.row).size();
     console.log(numrows);
     if (options.action == 'append') {
-        let newRow = options.row.clone(!options.copy);
+        let newRow = options.row.clone(true);
         newRow.find(`[id|=${rowtab}], [for|=${rowtab}], [data-deletes]`)
             .each((index, el) => {
                 if (jQuery(el).attr('name') && jQuery(el).attr('name').match(/\[\d+\]/g)) {
-                        jQuery(el).attr('name', (i, e) => e.replace(/(?!\[)\d+(?=\])/g, numrows));
+                        jQuery(el).attr('name', (i, e) => e.replace(/\d+/g, numrows));
                     }
-                if (jQuery(el).is('input, textarea'))
+                if (jQuery(el).is('input:not([type=radio]), textarea'))
                     jQuery(el).val('');
                 if (jQuery(el).attr('id'))
                     jQuery(el).attr('id', (i,e)=>e.replace(/\d+/, numrows + 1));
@@ -27,6 +26,7 @@ jQuery.fn.manageRows = function (options) {
                     jQuery(el).attr('data-deletes', (i,e)=>e.replace(/\d+/, numrows + 1));
                 });
         newRow.attr('id', (i,e)=>e.replace(/\d+/, numrows + 1));
+        options.callback(newRow);
         this.append(newRow);
         // if (counterInput.length)
         //     counterInput.val(numrows+1);
