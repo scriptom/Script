@@ -58,19 +58,19 @@
 									<div class="form-row">
 										<div class="col-md-6">
 											<label for="per_primer_nombre" class="h6">Primer Nombre</label>
-											<input type="text" class="form-control" id="per_primer_nombre" name="per_nombre[primer_nombre]" value="<?php echo $partes_nombre['per_primer_nombre']; ?>" placeholder="<?php echo $partes_nombre['per_primer_nombre']; ?>">
+											<input type="text" class="form-control" id="per_primer_nombre" name="per_nombre[primer_nombre]" value="<?php echo $partes_nombre['per_primer_nombre']; ?>" placeholder="<?php echo $partes_nombre['per_primer_nombre']; ?>" <?php if ( !current_user_can( 'manage_options' ) ) echo "disabled" ?>>
 										</div>
 										<div class="col-md-6">
 											<label for="per_segundo_nombre" class="h6">Segundo Nombre</label>
-											<input type="text" class="form-control" id="per_segundo_nombre" name="per_nombre[segundo_nombre]" value="<?php echo $partes_nombre['per_segundo_nombre']; ?>" placeholder="<?php echo $partes_nombre['per_segundo_nombre']; ?>">
+											<input type="text" class="form-control" id="per_segundo_nombre" name="per_nombre[segundo_nombre]" value="<?php echo $partes_nombre['per_segundo_nombre']; ?>" placeholder="<?php echo $partes_nombre['per_segundo_nombre']; ?>" <?php if ( !current_user_can( 'manage_options' ) ) echo "disabled" ?>>
 										</div>
 										<div class="col-md-6">
 											<label for="per_primer_apellido" class="h6">Primer Apellido</label>
-											<input type="text" class="form-control" id="per_primer_apellido" name="per_nombre[primer_apellido]" value="<?php echo $partes_nombre['per_primer_apellido']; ?>" placeholder="<?php echo $partes_nombre['per_primer_apellido']; ?>">
+											<input type="text" class="form-control" id="per_primer_apellido" name="per_nombre[primer_apellido]" value="<?php echo $partes_nombre['per_primer_apellido']; ?>" placeholder="<?php echo $partes_nombre['per_primer_apellido']; ?>" <?php if ( !current_user_can( 'manage_options' ) ) echo "disabled" ?>>
 										</div>
 										<div class="col-md-6">
 											<label for="per_segundo_apellido" class="h6">Segundo Apellido</label>
-											<input type="text" class="form-control" id="per_segundo_apellido" name="per_nombre[segundo_apellido]" value="<?php echo $partes_nombre['per_segundo_apellido']; ?>" placeholder="<?php echo $partes_nombre['per_segundo_apellido']; ?>">
+											<input type="text" class="form-control" id="per_segundo_apellido" name="per_nombre[segundo_apellido]" value="<?php echo $partes_nombre['per_segundo_apellido']; ?>" placeholder="<?php echo $partes_nombre['per_segundo_apellido']; ?>" <?php if ( !current_user_can( 'manage_options' ) ) echo "disabled" ?>>
 										</div>
 										<div class="col-md-6">
 											<label for="per_alias" class="h6">Alias</label>

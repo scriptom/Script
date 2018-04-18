@@ -190,6 +190,18 @@
 									</div> <!-- /.tab-pane -->
 									<div class="tab-pane fade" id="dcritica" aria-labelledby="dcritica-tab" role="tabpanel">
 										<h2 class="text-center">Cr&iacute;tica</h2>
+										<div class="col-12">
+											<div class="form-group">
+												<label for="critica_source_input">Fuente de la crítica</label>
+												<input type="text" name="critica_source_input" id="critica_source_input" class="form-control" placeholder="Página web, comentario, etc.">
+											</div>
+										</div>
+										<div class="col-12">
+											<div class="form-group">
+												<label for="critica_content">Contenido de la crítica</label>
+												<textarea name="critica_content" id="critica_content" cols="30" rows="10" class="form-control" placeholder="Contenido extraído de la fuente anteriormente mencionada"></textarea>
+											</div>
+										</div>
 									</div> <!-- /.tab-pane -->
 									<div class="tab-pane fade" id="dgentem" aria-labelledby="dgentem-tab" role="tabpanel">
 										<div class="row">
