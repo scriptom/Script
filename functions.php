@@ -1,6 +1,23 @@
 <?php
 require_once( 'class-wp-bootstrap-navwalker.php' );
 require_once( 'utils-functs.php' );
+include_once('updater.php');
+// Inicializar updater
+if (is_admin()) {
+		$config = array(
+			'slug' => plugin_basename(__FILE__), // this is the slug of your plugin
+			'proper_folder_name' => 'Script', // this is the name of the folder your plugin lives in
+			'api_url' => 'https://api.github.com/repos/scriptom/Script', // the GitHub API url of your GitHub repo
+			'raw_url' => 'https://raw.github.com/scriptom/Script/master', // the GitHub raw url of your GitHub repo
+			'github_url' => 'https://github.com/scriptom/Script', // the GitHub url of your GitHub repo
+			'zip_url' => 'https://github.com/scriptom/Script/zipball/master', // the zip url of the GitHub repo
+			'sslverify' => false, // whether WP should check the validity of the SSL cert when getting an update, see https://github.com/jkudish/WordPress-GitHub-Plugin-Updater/issues/2 and https://github.com/jkudish/WordPress-GitHub-Plugin-Updater/issues/4 for details
+			'requires' => '4.7', // which version of WordPress does your plugin require?
+			'tested' => '4.7.2', // which version of WordPress is your plugin tested up to?
+			'readme' => 'README.md', // which file to use as the readme for the version number
+		);
+		new WP_GitHub_Updater($config);
+	}
 if( function_exists('acf_add_local_field_group') ):
 
 	acf_add_local_field_group(array(
