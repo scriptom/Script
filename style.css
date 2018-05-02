@@ -126,10 +126,9 @@ ul.footer-nav li a {
 .social {
 	position: fixed;
 	/* Hacemos que la posición en pantalla sea fija para que siempre se muestre en pantalla*/
-	right: 0;
-	/* Establecemos la barra en la izquierda */
-	top: 300px;
-	/* Bajamos la barra 200px de arriba a abajo */
+	right: 0; /* Establecemos la barra en la izquierda */
+	top: 50%; /* Bajamos la barra a la mitad de la altura de la pantalla */
+	transform: translateY(-50%); /* Subimos la barra la mitad de su altura */
 	z-index: 999999999;
 	/* Utilizamos la propiedad z-index para que no se superponga algún otro elemento como sliders, galerías, etc */
 }

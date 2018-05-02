@@ -3,6 +3,257 @@ require_once( 'class-wp-bootstrap-navwalker.php' );
 require_once( 'utils-functs.php' );
 if( function_exists('acf_add_local_field_group') ):
 
+	acf_add_local_field_group(array(
+	'key' => 'group_5ab3e7920cc28',
+	'title' => 'Guiones adaptados',
+	'fields' => array(
+		array(
+			'key' => 'field_es_adaptado',
+			'label' => 'Es adaptación?',
+			'name' => 'es_adaptado',
+			'type' => 'true_false',
+			'instructions' => 'Indique si esta película es adaptada',
+			'required' => 0,
+			'conditional_logic' => 0,
+			'wrapper' => array(
+				'width' => '',
+				'class' => '',
+				'id' => '',
+			),
+			'message' => '',
+			'default_value' => 0,
+			'ui' => 1,
+			'ui_on_text' => 'Sí',
+			'ui_off_text' => 'No',
+		),
+		array(
+			'key' => 'field_autor_de_obra_original',
+			'label' => 'Autor de Obra Original',
+			'name' => 'autor_de_obra_original',
+			'type' => 'post_object',
+			'instructions' => '',
+			'required' => 0,
+			'conditional_logic' => array(
+				array(
+					array(
+						'field' => 'field_es_adaptado',
+						'operator' => '==',
+						'value' => '1',
+					),
+				),
+			),
+			'wrapper' => array(
+				'width' => '',
+				'class' => '',
+				'id' => '',
+			),
+			'post_type' => array(
+				0 => 'persona',
+			),
+			'taxonomy' => array(
+			),
+			'allow_null' => 0,
+			'multiple' => 0,
+			'return_format' => 'object',
+			'ui' => 1,
+		),
+		array(
+			'key' => 'field_obra_original',
+			'label' => 'Obra Original',
+			'name' => 'obra_original',
+			'type' => 'text',
+			'instructions' => 'Ingrese el nombre de la obra original de la que fue adaptada esta película',
+			'required' => 0,
+			'conditional_logic' => array(
+				array(
+					array(
+						'field' => 'field_es_adaptado',
+						'operator' => '==',
+						'value' => '1',
+					),
+				),
+			),
+			'wrapper' => array(
+				'width' => '',
+				'class' => '',
+				'id' => '',
+			),
+			'default_value' => '',
+			'placeholder' => '',
+			'prepend' => '',
+			'append' => '',
+			'maxlength' => '',
+		),
+	),
+	'location' => array(
+		array(
+			array(
+				'param' => 'post_type',
+				'operator' => '==',
+				'value' => 'pelicula',
+			),
+		),
+	),
+	'menu_order' => 0,
+	'position' => 'normal',
+	'style' => 'default',
+	'label_placement' => 'top',
+	'instruction_placement' => 'label',
+	'hide_on_screen' => '',
+	'active' => 1,
+	'description' => '',
+));
+
+acf_add_local_field_group(array(
+	'key' => 'group_5ad4cb5d13449',
+	'title' => 'Nosotros Data',
+	'fields' => array(
+		array(
+			'key' => 'field_texto_equipo_cic',
+			'label' => 'Texto Equipo CIC',
+			'name' => 'texto_equipo_cic',
+			'type' => 'wysiwyg',
+			'instructions' => 'Texto que describe al Centro',
+			'required' => 0,
+			'conditional_logic' => 0,
+			'wrapper' => array(
+				'width' => '',
+				'class' => '',
+				'id' => '',
+			),
+			'default_value' => '',
+			'tabs' => 'all',
+			'toolbar' => 'full',
+			'media_upload' => 1,
+			'delay' => 0,
+		),
+		array(
+			'key' => 'field_mapa_nosotros',
+			'label' => 'Mapa Nosotros',
+			'name' => 'mapa_nosotros',
+			'type' => 'google_map',
+			'instructions' => '',
+			'required' => 0,
+			'conditional_logic' => 0,
+			'wrapper' => array(
+				'width' => '',
+				'class' => '',
+				'id' => '',
+			),
+			'center_lat' => '10.4642',
+			'center_lng' => '-66.9779887',
+			'zoom' => '',
+			'height' => '',
+		),
+	),
+	'location' => array(
+		array(
+			array(
+				'param' => 'page',
+				'operator' => '==',
+				'value' => '689',
+			),
+		),
+	),
+	'menu_order' => 0,
+	'position' => 'normal',
+	'style' => 'default',
+	'label_placement' => 'top',
+	'instruction_placement' => 'label',
+	'hide_on_screen' => '',
+	'active' => 1,
+	'description' => '',
+));
+
+acf_add_local_field_group(array(
+	'key' => 'group_5ab3b3cca2aef',
+	'title' => 'Otro contenido de interés',
+	'fields' => array(
+		array(
+			'key' => 'field_enlaces_de_interes',
+			'label' => 'Enlaces de interés',
+			'name' => 'enlaces_de_interes',
+			'type' => 'repeater',
+			'instructions' => '',
+			'required' => 0,
+			'conditional_logic' => 0,
+			'wrapper' => array(
+				'width' => '',
+				'class' => '',
+				'id' => '',
+			),
+			'collapsed' => 'field_enlace_interes',
+			'min' => 0,
+			'max' => 0,
+			'layout' => 'table',
+			'button_label' => 'Añadir enlace',
+			'sub_fields' => array(
+				array(
+					'key' => 'field_enlace_interes',
+					'label' => 'Enlace',
+					'name' => 'enlace_interes',
+					'type' => 'text',
+					'instructions' => 'Dirección del enlace. Por favor compruebe que el enlace sea válido',
+					'required' => 0,
+					'conditional_logic' => 0,
+					'wrapper' => array(
+						'width' => '',
+						'class' => '',
+						'id' => '',
+					),
+					'default_value' => '',
+					'placeholder' => '',
+					'prepend' => '',
+					'append' => '',
+					'maxlength' => '',
+				),
+			),
+		),
+		array(
+			'key' => 'field_ruta_captura',
+			'label' => 'Fotos de la película',
+			'name' => 'ruta_captura',
+			'type' => 'gallery',
+			'instructions' => '',
+			'required' => 0,
+			'conditional_logic' => 0,
+			'wrapper' => array(
+				'width' => '',
+				'class' => '',
+				'id' => '',
+			),
+			'min' => '',
+			'max' => '',
+			'insert' => 'append',
+			'library' => 'all',
+			'min_width' => '',
+			'min_height' => '',
+			'min_size' => '',
+			'max_width' => '',
+			'max_height' => '',
+			'max_size' => '',
+			'mime_types' => 'jpg,jpeg,png,bmp,',
+		),
+	),
+	'location' => array(
+		array(
+			array(
+				'param' => 'post_type',
+				'operator' => '==',
+				'value' => 'pelicula',
+			),
+		),
+	),
+	'menu_order' => 1,
+	'position' => 'normal',
+	'style' => 'default',
+	'label_placement' => 'top',
+	'instruction_placement' => 'label',
+	'hide_on_screen' => '',
+	'active' => 1,
+	'description' => '',
+));
+
 acf_add_local_field_group(array(
 	'key' => 'group_5ab170f93ee51',
 	'title' => 'Datos Personas',
