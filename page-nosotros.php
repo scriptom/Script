@@ -30,7 +30,7 @@ add_action( 'wp_footer', function() use ($map){
 <?php if ( have_posts() ) : while ( have_posts() ) : the_post(); ?>
   <div class="row">
     <div class="col-md-6">
-      <div class="card bg-dark border border-light">
+      <div class="card bg-dark border border-light inner-shadow">
             <h4 class="card-header"><?php the_title(); ?></h4>
           <div class="card-body"><?php the_content(); ?></div>
       </div>
@@ -38,7 +38,7 @@ add_action( 'wp_footer', function() use ($map){
     <div class="col-md-6">
       <div class="row">
         <div class="col-md-12">
-            <div class="card bg-dark border border-light">
+            <div class="card bg-dark border border-light inner-shadow">
                     <h4 class="card-header">Equipo CIC</h4>
                 <div class="card-body">
                   <?php the_field( 'texto_equipo_cic' ) ?>
@@ -48,7 +48,7 @@ add_action( 'wp_footer', function() use ($map){
         </div>
       <div class="row">
         <div class="col-md-12">
-        <div class="card bg-dark border border-light">
+        <div class="card bg-dark border border-light inner-shadow">
             <h4 class="card-header">D&oacute;nde estamos</h4>
             <div class="card-body text-dark">
               <div id="map" style="height:300px">

@@ -1,11 +1,11 @@
 <?php
 require_once( 'class-wp-bootstrap-navwalker.php' );
 require_once( 'utils-functs.php' );
-include_once('updater.php');
+//include_once('updater.php');
 // Inicializar updater
 if (is_admin()) {
 		$config = array(
-			'slug' => plugin_basename(__FILE__), // this is the slug of your plugin
+			'slug' => 'cvnzl', // this is the slug of your plugin
 			'proper_folder_name' => 'Script', // this is the name of the folder your plugin lives in
 			'api_url' => 'https://api.github.com/repos/scriptom/Script', // the GitHub API url of your GitHub repo
 			'raw_url' => 'https://raw.github.com/scriptom/Script/master', // the GitHub raw url of your GitHub repo

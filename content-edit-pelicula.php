@@ -5,6 +5,11 @@
 		wp_die( 'No tiene acceso a esta pagina. Probablemente no este registrado o no haya iniciado sesion', 'Error al cargar la página' );
 	endif;
 
+	// Si el plugin no esta cargado, no hagamos nada
+	if ( !defined( CVNZL_LOADED ) ) {
+		wp_die( 'Ha ocurrido un error inesperado. Por favor pongase en contacto con el administrador del sitio' );
+	}
+
 	$dbid = get_post_meta( get_the_ID(), '_database_id', true );
 	$args2 = array(
 		'numberposts' => -1,
@@ -72,14 +77,14 @@
 												<label class="h3 text-center" for='pel_titulo'>T&iacute;tulo</label>
 												<input type="text" name="pel_titulo" id="pel_titulo" value="<?php echo esc_attr(get_the_title()); ?>" disabled class="form-control disabled">
 												<label for="pel_ano">A&ntilde;o estreno</label>
-												<input type="number" class="form-control col-md-2" name="pel_ano" min="1897" max="<?php echo date("Y")+5; ?>" id="pel_ano">
+												<input type="number" class="form-control col-md-2" name="PROP[<?php echo esc_attr( TABLA_PELICULAS ) ?>][0][pel_ano]" min="1897" max="<?php echo date("Y")+5; ?>" id="pel_ano">
 											</div> <!-- /.col-md-6 -->
 											<div class="col-md-6 align-self-center">
 												<label class="text-center h3">Proponer Sin&oacute;psis</label>
-												<textarea style="resize:none" name="propuesta_sinopsis" id="propuesta-sinopsis" cols="30" rows="10" class="form-control" placeholder="<?php echo get_the_content(); ?>"></textarea> <!-- /.textarea -->
+												<textarea style="resize:none" name="PROP[<?php echo esc_attr( TABLA_PELICULAS ) ?>][0][pel_sinopsis]" id="propuesta-sinopsis" cols="30" rows="10" class="form-control" placeholder="<?php echo get_the_content(); ?>"></textarea> <!-- /.textarea -->
 												<div class="form-check form-check-inline">
 												 	<label class="form-check-label" for="cb_hedit">
-														<input type="checkbox" name="habilitar_edicion" class="form-check-input" id="cb_hedit">
+														<input type="checkbox" class="form-check-input" id="cb_hedit">
 														Editar sin&oacute;psis actual
 													</label>
 												</div> <!-- /.form-check -->
@@ -106,13 +111,13 @@
 												<div class="col-xs-5 col-md-5">
 													<div class="form-group">
 														<label for="cp-input-resp-1">La compa&ntilde;&iacute;a</label>
-														<input type="text" data-type='casa_productora' class="form-control autocomplete" list="cp-cargos" id="cp-input-resp-1" name="cp-entries[0][nombre]">
+														<input type="text" data-type='casa_productora' class="form-control autocomplete" id="cp-input-resp-1" name="PROP[<?php echo esc_attr( TABLA_FICHAS_TECNICAS ) ?>][0][persona_id]">
 													</div> <!-- .form-group -->
 												</div>
 												<div class="col-xs-5 col-md-6">
 													<div class="form-group">
 														<label for="cp-select-puesto-1">Particip&oacute; como</label>
-														<select name="cp-entries[0][cargo]" id="cp-select-puesto-1" class="form-control form-control-chosen no-shadow text-dark" data-placeholder='Seleccione un cargo'>
+														<select name="PROP[<?php echo esc_attr( TABLA_FICHAS_TECNICAS ) ?>][0][cargo_id]" id="cp-select-puesto-1" class="form-control form-control-chosen no-shadow text-dark" data-placeholder='Seleccione un cargo'>
 															<option value=""></option>
 															<?php foreach ($cargos as $cargo): ?>
 															<option value="<?php echo $cargo['id']; ?>"><?php echo $cargo["tip_car_nombre"]; ?></option>
@@ -137,9 +142,9 @@
 										<h2 class="text-center">Ficha T&eacute;cnica: Guiones Adaptados</h2>
 										<div class="row justify-content-center">
 											<div class="col-md-auto"><label for="obra-orig">Esta pel&iacute;cula fue adaptada de la obra </label></div>
-											<div class="col-md-3"><input type="text" class="form-control" id="obra-orig" name="obra-orig"></div>
+											<div class="col-md-3"><input type="text" class="form-control" id="obra-orig" name="PROP[<?php echo esc_attr( TABLA_GUIONES_ADAPTADOS ) ?>][0][obra_original]"></div>
 											<div class="col-md-auto"><label for="autor-orig"> del autor </label></div>
-											<div class="col-md-3"><input type="text" class="form-control autocomplete" data-type='persona' name="autor-orig" id="autor-orig"></div>
+											<div class="col-md-3"><input type="text" class="form-control autocomplete" data-type='persona' name="PROP[<?php echo esc_attr( TABLA_GUIONES_ADAPTADOS ) ?>][0][nombre]" id="autor-orig"></div>
 										</div>
 									</div> <!-- #dgadapt -->
 									<div class="tab-pane fade" id="dft-personas" aria-labelledby="dft-personas" role="tabpanel">
@@ -160,7 +165,7 @@
 												<div class="col-xs-5 col-md-5">
 													<div class="form-group">
 														<label for="ft-input-resp-1">La persona</label>
-														<input type="text" data-type='persona' data-dbid='' class="form-control autocomplete" list="ft-cargos" id="ft-input-resp-1" name="ft-entries[0][nombre]">
+														<input type="text" data-type='persona' data-dbid='' class="form-control autocomplete" list="ft-cargos" id="ft-input-resp-1" name="PROP[<?php echo esc_attr( TABLA_FICHAS_TECNICAS ) ?>][0][nombre]">
 													</div> <!-- .form-group -->
 												</div>
 												<div class="col-xs-5 col-md-6">
