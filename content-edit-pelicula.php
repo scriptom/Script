@@ -111,7 +111,7 @@
 												<div class="col-xs-5 col-md-5">
 													<div class="form-group">
 														<label for="cp-input-resp-1">La compa&ntilde;&iacute;a</label>
-														<input type="text" data-type='casa_productora' class="form-control autocomplete" id="cp-input-resp-1" name="PROP[<?php echo esc_attr( TABLA_FICHAS_TECNICAS ) ?>][0][persona_id]">
+														<input type="text" data-type='casa_productora' class="form-control autocomplete" id="cp-input-resp-1" name="PROP[<?php echo esc_attr( TABLA_FICHAS_TECNICAS ) ?>][0][org_id]">
 													</div> <!-- .form-group -->
 												</div>
 												<div class="col-xs-5 col-md-6">
@@ -144,7 +144,7 @@
 											<div class="col-md-auto"><label for="obra-orig">Esta pel&iacute;cula fue adaptada de la obra </label></div>
 											<div class="col-md-3"><input type="text" class="form-control" id="obra-orig" name="PROP[<?php echo esc_attr( TABLA_GUIONES_ADAPTADOS ) ?>][0][obra_original]"></div>
 											<div class="col-md-auto"><label for="autor-orig"> del autor </label></div>
-											<div class="col-md-3"><input type="text" class="form-control autocomplete" data-type='persona' name="PROP[<?php echo esc_attr( TABLA_GUIONES_ADAPTADOS ) ?>][0][nombre]" id="autor-orig"></div>
+											<div class="col-md-3"><input type="text" class="form-control autocomplete" data-type='persona' name="PROP[<?php echo esc_attr( TABLA_GUIONES_ADAPTADOS ) ?>][0][persona_id]" id="autor-orig"></div>
 										</div>
 									</div> <!-- #dgadapt -->
 									<div class="tab-pane fade" id="dft-personas" aria-labelledby="dft-personas" role="tabpanel">
@@ -165,13 +165,13 @@
 												<div class="col-xs-5 col-md-5">
 													<div class="form-group">
 														<label for="ft-input-resp-1">La persona</label>
-														<input type="text" data-type='persona' data-dbid='' class="form-control autocomplete" list="ft-cargos" id="ft-input-resp-1" name="PROP[<?php echo esc_attr( TABLA_FICHAS_TECNICAS ) ?>][0][nombre]">
+														<input type="text" data-type='persona' data-dbid='' class="form-control autocomplete" list="ft-cargos" id="ft-input-resp-1" name="PROP[<?php echo esc_attr( TABLA_FICHAS_TECNICAS ) ?>][0][persona_id]">
 													</div> <!-- .form-group -->
 												</div>
 												<div class="col-xs-5 col-md-6">
 													<div class="form-group">
 														<label for="ft-select-puesto-1">Tuvo el cargo de</label>
-														<select name="ft-entries[0][cargo]" id="ft-select-puesto-1" class="form-control form-control-chosen no-shadow text-dark" data-placeholder='Seleccione un cargo'>
+														<select name="PROP[<?php echo esc_attr( TABLA_FICHAS_TECNICAS ) ?>][0][cargo_id]" id="ft-select-puesto-1" class="form-control form-control-chosen no-shadow text-dark" data-placeholder='Seleccione un cargo'>
 															<option value=""></option>
 															<?php foreach ($cargos as $cargo): ?>
 															<option value="<?php echo $cargo['id']; ?>"><?php echo $cargo["tip_car_nombre"]; ?></option>
@@ -198,13 +198,13 @@
 										<div class="col-12">
 											<div class="form-group">
 												<label for="critica_source_input">Fuente de la crítica</label>
-												<input type="text" name="critica_source_input" id="critica_source_input" class="form-control" placeholder="Página web, comentario, etc.">
+												<input type="text" name="PROP[<?php echo esc_attr( TABLA_CRITICAS ) ?>][0][cri_fuente]" id="critica_source_input" class="form-control" placeholder="Página web, comentario, etc.">
 											</div>
 										</div>
 										<div class="col-12">
 											<div class="form-group">
 												<label for="critica_content">Contenido de la crítica</label>
-												<textarea name="critica_content" id="critica_content" cols="30" rows="10" class="form-control" placeholder="Contenido extraído de la fuente anteriormente mencionada"></textarea>
+												<textarea name="PROP[<?php echo esc_attr( TABLA_CRITICAS ) ?>][0][cri_contenido]" id="critica_content" cols="30" rows="10" class="form-control" placeholder="Contenido extraído de la fuente anteriormente mencionada"></textarea>
 											</div>
 										</div>
 									</div> <!-- /.tab-pane -->
@@ -227,7 +227,7 @@
 														<div class="col-md-3">
 															<div class="form-check">
 																<label class="form-check-label">
-																	<input type="checkbox" name="generos[]" class="form-check-input" value="<?php echo $gen_nombre; ?>" <?php if( $has_genre ) echo "checked"; ?>>
+																	<input type="checkbox" name="PROP[<?php echo esc_attr( TABLA_GENEROS_APLICADOS ) ?>][][genero_id]" class="form-check-input" value="<?php echo $gen_nombre; ?>" <?php if( $has_genre ) echo "checked"; ?>>
 																	<?php echo $gen_nombre; ?>
 																</label>
 															</div> <!-- /.form-check -->
@@ -257,7 +257,7 @@
 													<div class="col-md-3">
 														<div class="form-check">
 															<label class="form-check-label">
-																<input type="checkbox" value="<?php echo $tem_nombre; ?>" name="tematicas[]" class="form-check-input" <?php if( $has_tem ) echo "checked"; ?>>
+																<input type="checkbox" value="<?php echo $tem_nombre; ?>" name="PROP[<?php echo esc_attr( TABLA_TEMATICAS_APLICADAS ) ?>][][tematicas_id]" class="form-check-input" <?php if( $has_tem ) echo "checked"; ?>>
 																<?php echo $tem_nombre; ?>
 															</label>
 														</div> <!-- /.form-check -->
@@ -285,25 +285,25 @@
 												<div class="col-md">
 													<div class="form-group">
 														<label for="lug-input-edf-1">Lugar f&iacute;sico</label>
-														<input type="text" class="form-control" id="lug-input-edf-1" name="lug-entries[0][edf]">
+														<input type="text" class="form-control" id="lug-input-edf-1" name="PROP[<?php echo esc_attr( TABLA_LOCACIONES ) ?>][0][lugar_fisico]">
 													</div>
 												</div>
 												<div class="col-md">
 													<div class="form-group">
 														<label for="lug-input-ciudad-1">Ciudad</label>
-														<input type="text" class="form-control" id="lug-input-ciudad-1" name="lug-entries[0][ciudad]">
+														<input type="text" class="form-control" id="lug-input-ciudad-1" name="PROP[<?php echo esc_attr( TABLA_LOCACIONES ) ?>][0][lugar_ciudad]">
 													</div>
 												</div>
 												<div class="col-md">
 													<div class="form-group">
 														<label for="lug-input-estado-1">Estado</label>
-														<input type="text" class="form-control" id="lug-input-estado-1" name="lug-entries[0][estado]">
+														<input type="text" class="form-control" id="lug-input-estado-1" name="PROP[<?php echo esc_attr( TABLA_LOCACIONES ) ?>][0][lugar_estado]">
 													</div>
 												</div>
 												<div class="col-md">
 													<div class="form-group">
 														<label for="lug-input-pais-1">Pa&iacute;s</label>
-														<input type="text" class="form-control" id="lug-input-pais-1" name="lug-entries[0][pais]">
+														<input type="text" class="form-control" id="lug-input-pais-1" name="PROP[<?php echo esc_attr( TABLA_LOCACIONES ) ?>][0][lugar_pais]">
 													</div>
 												</div>
 												<div class="col-1 align-self-end">
@@ -348,19 +348,19 @@
 												<div class="col-md persona-group">
 													<div class="form-group">
 														<label for="rep-input-personaje-1">Personaje</label>
-														<input type="text" class="form-control" id="rep-input-personaje-1" name="rep-entries[0][personaje]">
+														<input type="text" class="form-control" id="rep-input-personaje-1" name="PROP[<?php echo esc_attr( TABLA_REPARTOS ) ?>][0][personaje]">
 													</div>
 												</div>
 												<div class="col-md persona-group">
 													<div class="form-group">
 														<label for="rep-input-actor-1">Actor</label>
-														<input type="text" class="form-control" id="rep-input-actor-1" name="rep-entries[0][actor]">
+														<input type="text" class="form-control" id="rep-input-actor-1" name="PROP[<?php echo esc_attr( TABLA_REPARTOS ) ?>][0][persona_id]">
 													</div>
 												</div>
 												<div class="col-md grupo-group" style="display:none">
 													<div class="form-group">
 														<label for="rep-input-grupo-1">Nombre del grupo</label>
-														<input type="text" class="form-control" id="rep-input-grupo-1" name="rep-entries[0][grupo]">
+														<input type="text" class="form-control" id="rep-input-grupo-1" name="PROP[<?php echo esc_attr( TABLA_REPARTOS ) ?>][0][personaje]">
 													</div>
 												</div>
 												<div class="col-1 align-self-end">
