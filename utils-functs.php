@@ -84,7 +84,7 @@ function cvnzl_pluralize( $expresion, $separador_salida = '_' )
     $expresion_plural = implode( $separador_salida, $palabras);
   } else {
     // Si no es un array, debe ser un string
-    $expresion_plural = $plural( $expresion );
+    $expresion_plural = $plural( $palabras );
   }
   return $expresion_plural;
 }

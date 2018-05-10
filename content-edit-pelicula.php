@@ -5,8 +5,10 @@
 		wp_die( 'No tiene acceso a esta pagina. Probablemente no este registrado o no haya iniciado sesion', 'Error al cargar la página' );
 	endif;
 
+error_log(print_r(get_defined_constants(true), true));
 	// Si el plugin no esta cargado, no hagamos nada
-	if ( !defined( CVNZL_LOADED ) ) {
+	include_once( ABSPATH . 'wp-admin/includes/plugin.php');
+	if ( !is_plugin_active('cvnzl-admin/cvnzl-admin.php') ) {
 		wp_die( 'Ha ocurrido un error inesperado. Por favor pongase en contacto con el administrador del sitio' );
 	}
 
@@ -22,9 +24,6 @@
 
 	$cargos = cvnzl_get_guiones();
 
-	// $pelicula = cvnzl_get_movie_main_data( $dbid );
-	// error_log($pelicula);
-	// extract($pelicula);
 ?>
 <?php the_title( '<h1 class="text-center pel-titulo">Editando: <a class="text-white" href="'.get_the_permalink().'">', '</a></h1>', true ); ?>
 		<div class="row justify-content-center">

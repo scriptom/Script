@@ -18,18 +18,20 @@ if ( isset( $_POST['PROP'] ) ) {
         // Otra vez, comprobemos que haya informacion en esta propuesta
         if ( !empty( $propuesta ) ) {
           // Hay informacion en esta propuesta, asi que recorreremos cada columna de la propuesta
-          foreach ($propuesta as $columna => $valor) {
+          foreach ($propuesta as $columna => &$valor) {
             // Las columnas que tienen el sufijo '_id' hacen referencia a una tabla con una fk.
             // No obstante, estas tablas vienen del HTML con valores escritos (El valor referenciado) en vez del id.
             // Por tanto, hay que comprobar que tengan un contenido valido (numerico y que exista)
             if ( endsWith( '_id', $columna ) && !is_numeric( $valor ) ) {
               // Creamos un array de las posibles tablas de donde pueda venir la referencia (y las columnas que se usan para referenciar)
-              $posibles = array(
-                'personas' => 'persona_nombre',
-                'casas_productoras' => 'casa_productora_nombre',
-                'generos' => 'genero_nombre',
-                'tematicas' => 'tematica_nombre',
-              );
+              if ( is_null( $posibles ) ) {
+                $posibles = array(
+                  TABLA_PERSONAS => 'persona_nombre',
+                  TABLA_CASAS_PRODUCTORAS => 'casa_productora_nombre',
+                  TABLA_GENEROS => 'genero_nombre',
+                  TABLA_TEMATICAS => 'tematica_nombre',
+                );
+              }
               // Antes del ciclo, guardemos un auxiliar con el valor original de valor, porque despues de la primera iteracion cambiara
               $valor_original = $valor;
               foreach ($posibles as $posible_tabla => $posible_columna) {
@@ -52,9 +54,11 @@ if ( isset( $_POST['PROP'] ) ) {
                   // En caso de que no exista, añadimos a la base de datos drafts, en la tabla origen de datos (NO a la que llama dichos datos) el valor original del nuevo valor. Luego se tiene que hacer una referencia al nuevo valor)
                   $drfdb->insert( "{$tabla_origen}_drafts", array( $nombre_columna => $valor_original ) );
                 }
+                $valor = $drfdb->get_var( $drfdb->prepare( "SELECT id FROM {$tabla_origen}_drafts WHERE {$nombre_columna} = %s" ), $valor_original );
               } //endif is_null($valor)
-            }
-          }
+            } // endif (endsWith() && !is_numeric)
+          } //endforeach ($propuesta as $columna => &$valor)
+          $drfdb->insert( "{$tabla}_drafts", $propuesta );
         }
       }
     }
