@@ -48,9 +48,9 @@ if ( isset( $_POST['PROP'] ) ) {
                 $tabla_origen = cvnzl_pluralize( str_replace( '_id', '', $columna ) );
                 $nombre_columna = str_replace( 'id', 'nombre', $columna );
                 // Comprobamos si el valor existe antes de añadirlo a la base de datos
-                if ( is_null( $drfdb->get_var( $drfdb->prepare( "SELECT id FROM {$tabla_origen} WHERE {$nombre_columna} = %s" ), $valor_original ) ) ) {
+                if ( is_null( $drfdb->get_var( $drfdb->prepare( "SELECT id FROM {$tabla_origen}_drafts WHERE {$nombre_columna} = %s" ), $valor_original ) ) ) {
                   // En caso de que no exista, añadimos a la base de datos drafts, en la tabla origen de datos (NO a la que llama dichos datos) el valor original del nuevo valor. Luego se tiene que hacer una referencia al nuevo valor)
-                  $drfdb->insert( $tabla_origen, array( $nombre_columna => $valor_original ) );
+                  $drfdb->insert( "{$tabla_origen}_drafts", array( $nombre_columna => $valor_original ) );
                 }
               } //endif is_null($valor)
             }
