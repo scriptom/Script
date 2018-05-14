@@ -11,7 +11,7 @@
         <h6><strong><i class="fa fa-envelope"></i> Correo:</strong><br> cicucab.ccs@gmail.com</h6>
       </div>
       <div class="col-md-3">
-        <a href="https://cic.ucab.edu.ve"><img class="img-fluid" src="<?php echo get_stylesheet_directory_uri(); ?>/assets/LogoCICpng2.png" alt="logoCic"></a>
+        <a href="https://cic.ucab.edu.ve"><img class="img-fluid" src="<?php echo get_stylesheet_directory_uri(); ?>/assets/LOGO-DIAPO-CIC8x8.png" alt="logoCic"></a>
       </div>
       <div class="col-md-3">
         <a href="https://ucab.edu.ve"><img class="img-fluid" src="<?php echo get_stylesheet_directory_uri(); ?>/assets/ucab1.png" alt="logoUcab"></a>
