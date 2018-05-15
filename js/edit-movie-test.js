@@ -1,7 +1,7 @@
 jQuery(function($) {
-	var textarea = $('textarea[name="propuesta-sinopsis"]'),
+	var textarea = $('#propuesta-sinopsis'),
 		ta_ph = textarea.attr('placeholder'),
-		cbox_hab_edit = $(':checkbox[name="habilitar_edicion"]');
+		cbox_hab_edit = $(':checkbox#cb_hedit');
 
 	cbox_hab_edit.change( ( event ) => {
 		textarea.val(event.target.checked ? ta_ph : '');
@@ -39,12 +39,23 @@ jQuery(function($) {
 	}
 	// $radios.change();
 
-	$('.autocomplete').autocomplete({
-		source: ah.ajaxurl + '?action=cvnzl_per_suggest',
-		minLength: 2,
-		select: function(event, ui) {
-			event.preventDefault();
-			$(this).val(ui.item.label);
+	$('[class*=autocomplete]').each(function(index, element){
+		let classes = element.className.split(/\s+/g);
+		let the_class;
+		for (var i = 0; i < classes.length; i++) {
+			if (classes[i].startsWith('autocomplete')) {
+				the_class = classes[i];
+				break;
+			}
 		}
-	});
+		let the_type = the_class.substring(the_class.indexOf('-') + 1, the_class.length);
+		$(element).autocomplete({
+			source: ah.ajaxurl + '?action=cvnzl_'+the_type+'_suggest',
+			minLength: 2,
+			select: function(event, ui) {
+				event.preventDefault();
+				$(this).val(ui.item.label);
+			}
+		});
+	})
 });

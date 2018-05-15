@@ -12,6 +12,9 @@ body {
 
 	color: white; /* Que los textos sean blancos por defecto */
 }
+.widgettitle > a.rsswidget {
+	color: #fff;
+}
 .bghack::before {
 	content: ' ';
 	position: fixed;
@@ -135,6 +138,7 @@ ul.footer-nav li a {
 .social ul {
 	list-style: none;
 }
+
 .social ul li a {
 	display: inline-block;
 	color: #fff;

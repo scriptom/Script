@@ -1078,6 +1078,7 @@ acf_add_local_field_group(array(
 ));
 
 endif;
+define( 'CVNZL_STYLE_DIRECTORY', get_stylesheet_directory_uri() );
 function cnvzl_theme_setup() {
 	// Soporte para thumbnails
 	add_theme_support( 'post-thumbnails' );
@@ -1101,21 +1102,21 @@ function cnvzl_theme_setup() {
 add_action( 'after_setup_theme', 'cnvzl_theme_setup' );
 
 function cvnzl_register_scripts() {
-	wp_enqueue_style( 'font-awesome', get_stylesheet_directory_uri() . '/css/font-awesome.css' );
+	wp_enqueue_style( 'font-awesome', CVNZL_STYLE_DIRECTORY . '/css/font-awesome.css' );
 	wp_enqueue_style( 'bootstrap', "https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" );
-	wp_enqueue_style( 'site-styles', get_stylesheet_directory_uri(). '/style.css', array( 'bootstrap' ) );
-	wp_enqueue_style( 'jquery-ui', get_stylesheet_directory_uri(). '/css/jquery-ui.min.css' );
-	wp_enqueue_style( 'jquery-ui-theme-ui-darkness', get_stylesheet_directory_uri(). '/css/theme.css', array( 'jquery-ui' ) );
+	wp_enqueue_style( 'site-styles', CVNZL_STYLE_DIRECTORY. '/style.css', array( 'bootstrap' ) );
+	wp_enqueue_style( 'jquery-ui', CVNZL_STYLE_DIRECTORY. '/css/jquery-ui.min.css' );
+	wp_enqueue_style( 'jquery-ui-theme-ui-darkness', CVNZL_STYLE_DIRECTORY. '/css/theme.css', array( 'jquery-ui' ) );
 
 	wp_enqueue_script( 'popper-js', 'https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js', array( 'jquery' ), '1.11.0', true );
 	wp_enqueue_script( 'bootstrap-js', 'https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js', array( 'jquery', 'popper-js' ), '4.0.0', true );
-	wp_enqueue_script( 'window-resize-js', get_stylesheet_directory_uri(). '/js/window-resize.js', array( 'jquery' ), '1.0' );
-	wp_enqueue_script( 'holder', get_stylesheet_directory_uri(). '/js/holder.min.js' );
+	// wp_enqueue_script( 'window-resize-js', CVNZL_STYLE_DIRECTORY. '/js/window-resize.js', array( 'jquery' ), '1.0' );
+	wp_enqueue_script( 'holder', CVNZL_STYLE_DIRECTORY. '/js/holder.min.js' );
 	if ( is_page( 'busqueda' ) )
-		wp_enqueue_script( 'search-form-js', get_stylesheet_directory_uri(). '/js/search-form.js', array( 'jquery', 'window-resize-js' ), '1.0' );
+		wp_enqueue_script( 'search-form-js', CVNZL_STYLE_DIRECTORY. '/js/search-form.js', array( 'jquery', 'window-resize-js' ), '1.0' );
 	if ( is_edit_page() ) {
-		wp_enqueue_script( 'rowmanager', get_stylesheet_directory_uri(). '/js/managerows.js', array( 'jquery' ), '1.0' );
-		wp_enqueue_script( 'edit-movie-test-js', get_stylesheet_directory_uri(). '/js/edit-movie-test.js', array( 'jquery', 'rowmanager', 'jquery-ui-autocomplete' ), '1.0' );
+		wp_enqueue_script( 'rowmanager', CVNZL_STYLE_DIRECTORY. '/js/managerows.js', array( 'jquery' ), '1.0' );
+		wp_enqueue_script( 'edit-movie-test-js', CVNZL_STYLE_DIRECTORY. '/js/edit-movie-test.js', array( 'jquery', 'rowmanager', 'jquery-ui-autocomplete' ), '1.0' );
 		wp_enqueue_script( 'jquery-ui-autocomplete' );
 		// wp_enqueue_script( 'edit-movie-js', get_stylesheet_directory_uri(). '/js/edit-movie.js', array( 'jquery' ), '1.0' );
 		wp_localize_script('edit-movie-test-js', 'ah', array(
@@ -1226,30 +1227,6 @@ function cvnzl_alter_nav_menu( $items, $args )
 }
 add_filter( 'wp_nav_menu', 'cvnzl_alter_nav_menu', 10, 2 );
 
-// *** OBSOLETA *** //
-function cnvzl_organizar_meta( $meta_pelicula ) {
-	$datos_pelicula = array();
-	foreach ( $meta_pelicula as $meta_nombre => $meta_value ) {
-	    if ( startsWith( $meta_nombre, "Taquilla" ) ) {
-	        $datos_pelicula["taquilla"][$meta_nombre] = $meta_value;
-	    } else
-	    if ( ( startsWith( $meta_nombre, "Dirección" ) )
-	    or ( "Guión" === $meta_nombre )
-	    or ( "Producción" === $meta_nombre ) ) {
-	        $datos_pelicula["direccion"][$meta_nombre] = $meta_value;
-	    } else
-	    if ( startsWith( $meta_nombre, "Asistente" ) ) {
-	        $datos_pelicula["asistentes"][$meta_nombre] = $meta_value;
-	    } else
-	    if ( startsWith( "Diseño", $meta_nombre ) ) {
-	        $datos_pelicula["diseno"][$meta_nombre] = $meta_value;
-	    } else
-	    if ( startsWith( "Efectos", $meta_nombre ) ) {
-	        $datos_pelicula["efectos"][$meta_nombre] = $meta_value;
-	    }
-	}
-    return $datos_pelicula;
-}
 function cvnzl_add_query_vars($vars) {
 	$vars[] = "edit";
 	return $vars;
@@ -1280,7 +1257,31 @@ function cvnzl_return_per_suggest() {
 				$per_id = get_post_meta($suggestion['ID'], '_per_database_id', true);
 				$response_obj[] = array(
 					'label' => $suggestion['nombre'],
-					'value' => $per_id
+					'value' => $suggestion['nombre']
+				);
+			}
+		}
+		echo json_encode($response_obj);
+	}
+	wp_die();
+}
+add_action('wp_ajax_cvnzl_cp_suggest', 'cvnzl_return_cp_suggest');
+add_action('wp_ajax_nopriv_cvnzl_cp_suggest', 'cvnzl_return_cp_suggest');
+function cvnzl_return_cp_suggest() {
+	$term = isset($_GET['term']) ? $_GET['term'] : '';
+	if ($term) {
+		global $wpdb;
+		$sql = "SELECT post_title AS nombre, ID FROM $wpdb->posts WHERE post_title LIKE '%s' AND post_type = %s";
+		$term = '%'.$term.'%';
+		$stmt = $wpdb->prepare($sql, $term, 'casa_productora');
+		$suggestions = $wpdb->get_results($stmt, ARRAY_A);
+		$response_obj = array();
+		if ( ! empty( $suggestions ) ) {
+			foreach ( $suggestions as $suggestion ) {
+				$cp_id = get_post_meta($suggestion['ID'], '_cp_database_id', true);
+				$response_obj[] = array(
+					'label' => $suggestion['nombre'],
+					'value' => $suggestion['nombre']
 				);
 			}
 		}

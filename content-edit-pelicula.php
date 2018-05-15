@@ -66,7 +66,7 @@ error_log(print_r(get_defined_constants(true), true));
 						</ul> <!-- /#cambios-tabs -->
 					</div>
 					<div class="card-body">
-						<form id="editar-peli-form">
+						<form id="editar-peli-form" action="<?php echo plugins_url().'/cvnzl-admin/procesar-prop.php' ?>" method="post">
 							<input type="hidden" name="dbid" value="<?php echo esc_attr($dbid); ?>">
 							<div class="tab-content">
 									<div class="tab-pane fade show active" id="dgenerales" aria-labelledby="dgenerales-tab" role="tabpanel">
@@ -76,7 +76,7 @@ error_log(print_r(get_defined_constants(true), true));
 												<label class="h3 text-center" for='pel_titulo'>T&iacute;tulo</label>
 												<input type="text" name="pel_titulo" id="pel_titulo" value="<?php echo esc_attr(get_the_title()); ?>" disabled class="form-control disabled">
 												<label for="pel_ano">A&ntilde;o estreno</label>
-												<input type="number" class="form-control col-md-2" name="PROP[<?php echo esc_attr( TABLA_PELICULAS ) ?>][0][pel_ano]" min="1897" max="<?php echo date("Y")+5; ?>" id="pel_ano">
+												<input type="number" length="4" class="form-control col-md-2" name="PROP[<?php echo esc_attr( TABLA_PELICULAS ) ?>][0][pel_ano]" min="1897" max="<?php echo date("Y")+5; ?>" id="pel_ano">
 											</div> <!-- /.col-md-6 -->
 											<div class="col-md-6 align-self-center">
 												<label class="text-center h3">Proponer Sin&oacute;psis</label>
@@ -110,7 +110,7 @@ error_log(print_r(get_defined_constants(true), true));
 												<div class="col-xs-5 col-md-5">
 													<div class="form-group">
 														<label for="cp-input-resp-1">La compa&ntilde;&iacute;a</label>
-														<input type="text" data-type='casa_productora' class="form-control autocomplete" id="cp-input-resp-1" name="PROP[<?php echo esc_attr( TABLA_FICHAS_TECNICAS ) ?>][0][org_id]">
+														<input type="text" data-type='casa_productora' class="form-control autocomplete-cp" id="cp-input-resp-1" name="PROP[<?php echo esc_attr( TABLA_FICHAS_TECNICAS ) ?>][0][casa_productora_id]">
 													</div> <!-- .form-group -->
 												</div>
 												<div class="col-xs-5 col-md-6">
@@ -119,7 +119,7 @@ error_log(print_r(get_defined_constants(true), true));
 														<select name="PROP[<?php echo esc_attr( TABLA_FICHAS_TECNICAS ) ?>][0][cargo_id]" id="cp-select-puesto-1" class="form-control form-control-chosen no-shadow text-dark" data-placeholder='Seleccione un cargo'>
 															<option value=""></option>
 															<?php foreach ($cargos as $cargo): ?>
-															<option value="<?php echo $cargo['id']; ?>"><?php echo $cargo["cargo_nombre"]; ?></option>
+															<option value="<?php echo $cargo['id']; ?>"><?php echo $cargo["cargo"]; ?></option>
 															<?php endforeach ?>
 														</select>
 													</div>
@@ -143,7 +143,7 @@ error_log(print_r(get_defined_constants(true), true));
 											<div class="col-md-auto"><label for="obra-orig">Esta pel&iacute;cula fue adaptada de la obra </label></div>
 											<div class="col-md-3"><input type="text" class="form-control" id="obra-orig" name="PROP[<?php echo esc_attr( TABLA_GUIONES_ADAPTADOS ) ?>][0][obra_original]"></div>
 											<div class="col-md-auto"><label for="autor-orig"> del autor </label></div>
-											<div class="col-md-3"><input type="text" class="form-control autocomplete" data-type='persona' name="PROP[<?php echo esc_attr( TABLA_GUIONES_ADAPTADOS ) ?>][0][persona_id]" id="autor-orig"></div>
+											<div class="col-md-3"><input type="text" class="form-control autocomplete-per" data-type='persona' name="PROP[<?php echo esc_attr( TABLA_GUIONES_ADAPTADOS ) ?>][0][persona_id]" id="autor-orig"></div>
 										</div>
 									</div> <!-- #dgadapt -->
 									<div class="tab-pane fade" id="dft-personas" aria-labelledby="dft-personas" role="tabpanel">
@@ -164,7 +164,7 @@ error_log(print_r(get_defined_constants(true), true));
 												<div class="col-xs-5 col-md-5">
 													<div class="form-group">
 														<label for="ft-input-resp-1">La persona</label>
-														<input type="text" data-type='persona' data-dbid='' class="form-control autocomplete" list="ft-cargos" id="ft-input-resp-1" name="PROP[<?php echo esc_attr( TABLA_FICHAS_TECNICAS ) ?>][0][persona_id]">
+														<input type="text" data-type='persona' data-dbid='' class="form-control autocomplete-per" list="ft-cargos" id="ft-input-resp-1" name="PROP[<?php echo esc_attr( TABLA_FICHAS_TECNICAS ) ?>][0][persona_id]">
 													</div> <!-- .form-group -->
 												</div>
 												<div class="col-xs-5 col-md-6">
@@ -173,7 +173,7 @@ error_log(print_r(get_defined_constants(true), true));
 														<select name="PROP[<?php echo esc_attr( TABLA_FICHAS_TECNICAS ) ?>][0][cargo_id]" id="ft-select-puesto-1" class="form-control form-control-chosen no-shadow text-dark" data-placeholder='Seleccione un cargo'>
 															<option value=""></option>
 															<?php foreach ($cargos as $cargo): ?>
-															<option value="<?php echo $cargo['id']; ?>"><?php echo $cargo["cargo_nombre"]; ?></option>
+															<option value="<?php echo $cargo['id']; ?>"><?php echo $cargo["cargo"]; ?></option>
 															<?php endforeach ?>
 														</select>
 													</div>
@@ -256,7 +256,7 @@ error_log(print_r(get_defined_constants(true), true));
 													<div class="col-md-3">
 														<div class="form-check">
 															<label class="form-check-label">
-																<input type="checkbox" value="<?php echo $tem_nombre; ?>" name="PROP[<?php echo esc_attr( TABLA_TEMATICAS_APLICADAS ) ?>][][tematicas_id]" class="form-check-input" <?php if( $has_tem ) echo "checked"; ?>>
+																<input type="checkbox" value="<?php echo $tem_nombre; ?>" name="PROP[<?php echo esc_attr( TABLA_TEMATICAS_APLICADAS ) ?>][][tematica_id]" class="form-check-input" <?php if( $has_tem ) echo "checked"; ?>>
 																<?php echo $tem_nombre; ?>
 															</label>
 														</div> <!-- /.form-check -->
@@ -353,7 +353,7 @@ error_log(print_r(get_defined_constants(true), true));
 												<div class="col-md persona-group">
 													<div class="form-group">
 														<label for="rep-input-actor-1">Actor</label>
-														<input type="text" class="form-control" id="rep-input-actor-1" name="PROP[<?php echo esc_attr( TABLA_REPARTOS ) ?>][0][persona_id]">
+														<input type="text" class="form-control autocomplete-per" id="rep-input-actor-1" name="PROP[<?php echo esc_attr( TABLA_REPARTOS ) ?>][0][persona_id]">
 													</div>
 												</div>
 												<div class="col-md grupo-group" style="display:none">
@@ -375,12 +375,12 @@ error_log(print_r(get_defined_constants(true), true));
 											</div>
 										</div>
 									</div> <!-- #dreparto -->
-							</div> <!-- /.tab-content -->
-						</div> <!-- /.card-body -->
-						<div class="card-footer text-center">
-							<button class="btn btn-light mx-auto cursor-pointer" name="sub_props" type="submit">Enviar propuestas</button>
-						</div>
-					</form> <!-- #editar-peli-form -->
+								</div> <!-- /.tab-content -->
+							</form> <!-- #editar-peli-form -->
+							</div> <!-- /.card-body -->
+							<div class="card-footer text-center">
+								<button class="btn btn-light mx-auto cursor-pointer" form="editar-peli-form" name="sub_props" type="submit">Enviar propuestas</button>
+							</div>
 				</div> <!-- /.card -->
 			</div> <!-- /.col-md-12 -->
 		</div> <!-- /.row -->

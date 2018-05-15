@@ -34,13 +34,14 @@
                         		);
 							}
 					?>
+
 					<?php	if ( has_nav_menu( 'accounts' ) ) {
 								wp_nav_menu( array(
 									'theme_location'    => 'accounts',
 									'depth'             => 2,
 									'container'         => 'div',
-									'container_class'   => 'collapse navbar-collapse',
-									'container_id'      => 'bs-example-navbar-collapse-2',
+									// 'container_class'   => 'collapse navbar-collapse',
+									// 'container_id'      => 'bs-example-navbar-collapse-1',
 									'menu_class'        => 'navbar-nav ml-auto',
 									'fallback_cb'       => 'WP_Bootstrap_Navwalker::fallback',
 									'walker'            => new WP_Bootstrap_Navwalker()
