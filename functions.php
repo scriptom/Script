@@ -3,21 +3,21 @@ require_once( 'class-wp-bootstrap-navwalker.php' );
 require_once( 'utils-functs.php' );
 //include_once('updater.php');
 // Inicializar updater
-if (is_admin()) {
-		$config = array(
-			'slug' => 'cvnzl', // this is the slug of your plugin
-			'proper_folder_name' => 'Script', // this is the name of the folder your plugin lives in
-			'api_url' => 'https://api.github.com/repos/scriptom/Script', // the GitHub API url of your GitHub repo
-			'raw_url' => 'https://raw.github.com/scriptom/Script/master', // the GitHub raw url of your GitHub repo
-			'github_url' => 'https://github.com/scriptom/Script', // the GitHub url of your GitHub repo
-			'zip_url' => 'https://github.com/scriptom/Script/zipball/master', // the zip url of the GitHub repo
-			'sslverify' => false, // whether WP should check the validity of the SSL cert when getting an update, see https://github.com/jkudish/WordPress-GitHub-Plugin-Updater/issues/2 and https://github.com/jkudish/WordPress-GitHub-Plugin-Updater/issues/4 for details
-			'requires' => '4.7', // which version of WordPress does your plugin require?
-			'tested' => '4.7.2', // which version of WordPress is your plugin tested up to?
-			'readme' => 'README.md', // which file to use as the readme for the version number
-		);
-		new WP_GitHub_Updater($config);
-	}
+// if (is_admin()) {
+// 		$config = array(
+// 			'slug' => 'cvnzl', // this is the slug of your plugin
+// 			'proper_folder_name' => 'Script', // this is the name of the folder your plugin lives in
+// 			'api_url' => 'https://api.github.com/repos/scriptom/Script', // the GitHub API url of your GitHub repo
+// 			'raw_url' => 'https://raw.github.com/scriptom/Script/master', // the GitHub raw url of your GitHub repo
+// 			'github_url' => 'https://github.com/scriptom/Script', // the GitHub url of your GitHub repo
+// 			'zip_url' => 'https://github.com/scriptom/Script/zipball/master', // the zip url of the GitHub repo
+// 			'sslverify' => false, // whether WP should check the validity of the SSL cert when getting an update, see https://github.com/jkudish/WordPress-GitHub-Plugin-Updater/issues/2 and https://github.com/jkudish/WordPress-GitHub-Plugin-Updater/issues/4 for details
+// 			'requires' => '4.7', // which version of WordPress does your plugin require?
+// 			'tested' => '4.7.2', // which version of WordPress is your plugin tested up to?
+// 			'readme' => 'README.md', // which file to use as the readme for the version number
+// 		);
+// 		new WP_GitHub_Updater($config);
+// 	}
 if( function_exists('acf_add_local_field_group') ):
 
 	acf_add_local_field_group(array(
@@ -880,6 +880,27 @@ acf_add_local_field_group(array(
 	'key' => 'group_5ab3adbfb8e74',
 	'title' => 'Data',
 	'fields' => array(
+		array(
+			'key' => 'field_pel_ano',
+			'label' => 'Año estreno',
+			'name' => 'pel_ano',
+			'type' => 'number',
+			'instructions' => '',
+			'required' => 0,
+			'conditional_logic' => 0,
+			'wrapper' => array(
+				'width' => '',
+				'class' => '',
+				'id' => ''
+			),
+			'default_value' => '',
+			'placeholder' => 'Ej. '.date('Y'),
+			'prepend' => '',
+			'append' => '',
+			'min' => '1897',
+			'max' => date('Y')+5,
+			'step' => 1,
+		),
 		array(
 			'key' => 'field_criticas',
 			'label' => 'Críticas',

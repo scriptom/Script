@@ -13,7 +13,7 @@
 	$tematicas = wp_get_post_terms( get_the_ID(), 'tematica' );
 	$fields = get_field_objects();
 
-	// error_log(print_r($fields, true));
+	 error_log(print_r($generos, true));
 ?>
 <?php the_title( '<h1 class="text-center pel-titulo">', ($is_editor?"  ".$edit_btn:'').'</h1>', true ); ?>
 	<div class="row">
@@ -32,7 +32,7 @@
 				</div> <!-- /.card-body -->
 				<?php if (!empty($generos) || !empty($tematicas)): ?>
 				<div class="card-footer">
-					<?php if (!empty($generos)) {
+					<?php if (!empty($generos) && ! ($generos instanceof WP_Error)) {
 						echo "G&eacute;neros: <span class='font-italic'>";
 						foreach ($generos as $genero) {
 							if (!isset($gtxt)) $gtxt = array();
@@ -42,7 +42,7 @@
 						echo implode(", ", $gtxt);
 						echo "</span><br>";
 					}
-					if (!empty($tematicas)) {
+					if (!empty($tematicas) && ! ($tematicas instanceof WP_Error)) {
 					 	echo "Tem&aacute;ticas: <span class='font-italic'>";
 					 	foreach ($tematicas as $tematica) {
 					 		if(!isset($ttxt)) $ttxt = array();

@@ -119,7 +119,7 @@ error_log(print_r(get_defined_constants(true), true));
 														<select name="PROP[<?php echo esc_attr( TABLA_FICHAS_TECNICAS ) ?>][0][cargo_id]" id="cp-select-puesto-1" class="form-control form-control-chosen no-shadow text-dark" data-placeholder='Seleccione un cargo'>
 															<option value=""></option>
 															<?php foreach ($cargos as $cargo): ?>
-															<option value="<?php echo $cargo['id']; ?>"><?php echo $cargo["tip_car_nombre"]; ?></option>
+															<option value="<?php echo $cargo['id']; ?>"><?php echo $cargo["cargo_nombre"]; ?></option>
 															<?php endforeach ?>
 														</select>
 													</div>
@@ -173,7 +173,7 @@ error_log(print_r(get_defined_constants(true), true));
 														<select name="PROP[<?php echo esc_attr( TABLA_FICHAS_TECNICAS ) ?>][0][cargo_id]" id="ft-select-puesto-1" class="form-control form-control-chosen no-shadow text-dark" data-placeholder='Seleccione un cargo'>
 															<option value=""></option>
 															<?php foreach ($cargos as $cargo): ?>
-															<option value="<?php echo $cargo['id']; ?>"><?php echo $cargo["tip_car_nombre"]; ?></option>
+															<option value="<?php echo $cargo['id']; ?>"><?php echo $cargo["cargo_nombre"]; ?></option>
 															<?php endforeach ?>
 														</select>
 													</div>
