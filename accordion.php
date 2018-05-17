@@ -1,11 +1,10 @@
  <?php
  global $dbid;
  global $fields;
-
 $data_taquilla = array_filter($fields, function($key){
     return startsWith($key, 'pel_rec') || startsWith($key, 'pel_espec');
 }, ARRAY_FILTER_USE_KEY);
-
+error_log(print_r($data_taquilla, true));
 $data_direccion = array_filter($fields, function($key){
     return startsWith($key, 'direccion') || startsWith($key, 'director');
 }, ARRAY_FILTER_USE_KEY);
@@ -26,19 +25,14 @@ $data_casas_prod = array_filter($fields, function($key){
     return $key === 'casas_productoras' || $key === 'financiamiento';
 }, ARRAY_FILTER_USE_KEY);
 
-error_log(print_r($data_taquilla, true));
+$data_criticas = array_filter($fields , function($key){
+	return $key === 'criticas';
+}, ARRAY_FILTER_USE_KEY);
 
 // Datos tecnicos de la pelicula (Titulo, sinopsis, recaudo, etc.)
 // $pelicula = cvnzl_get_movie_main_data( $dbid );
 $meta_pelicula = get_post_meta( get_the_ID() );
 
-$datos = cnvzl_organizar_meta( $meta_pelicula );
-
-// Datos de la ficha tecnica de la pelicula
-// $datos = cvnzl_get_fichas_tecnicas( $dbid, false, true );
-
-// Datos del reparto de la pelicula
-$reparto = cvnzl_get_reparto( $dbid, false, true );
 function mostrar_msj_inexistente() {
     $edit_url = add_query_arg('edit', 1);
     $edit_url = esc_url( $edit_url );
@@ -156,13 +150,20 @@ function mostrar_msj_inexistente() {
 				<h5 class="card-header mb-0 cursor-pointer" data-toggle="collapse" data-parent="#accordion2" data-target="#acordeonPersonajes">Personajes</h5>
 				<div id="acordeonPersonajes" class="card-collapse collapse">
 					<div class="card-body">
-					<?php if ( ! empty( $reparto['personajes'] ) ): ?>
-						<?php foreach ( $reparto['personajes'] as $personaje ) : ?>
+					<?php if ( ! empty( $fields['data_reparto'] ) ): ?>
+						<?php foreach ( $fields['data_reparto'] as $personaje ) : ?>
 						<span>
-							<a class="text-white" href="<?php echo( get_search_link( $personaje['artista'] ) ); ?>">
-								<?php echo trim( $personaje['artista'] ); ?>
-							</a> -
-							<i><?php echo trim( $personaje['personaje'] ); ?></i>
+                            <?php if (!is_null($personaje['reparto_persona']) && $personaje['reparto_persona'] instanceof WP_Post): ?>
+                                
+                            <a class="text-white" href="<?php echo( get_search_link( $personaje['reparto_persona']->post_title ) ); ?>">
+                                <?php echo trim( $personaje['reparto_persona']->post_title ); ?>
+                            </a> 
+                                <?php if ($personaje['personaje']): ?>
+                                -
+                                <i><?php echo trim( $personaje['personaje'] ); ?></i>
+                                    
+                                <?php endif ?>
+                            <?php endif ?>
 						</span>
 						<br>
 						<?php endforeach; ?>
@@ -170,22 +171,23 @@ function mostrar_msj_inexistente() {
 					</div> <!-- /.card-body -->
 				</div> <!-- /.card-collapse -->
 			</div>
-			<div class="card box-shadow bg-dark m-1 border border-light">
-				<h5 class="card-header mb-0 cursor-pointer" data-toggle="collapse" data-parent="#accordion2" data-target="#acordeonExtras">Extras</h5>
-				<div id="acordeonExtras" class="card-collapse collapse">
-					<div class="card-body">
-					<?php if ( ! empty( $reparto['extras'] ) ): ?>
-						<?php foreach (	$reparto['extras'] as $extra ): ?>
-							<a class="text-white" href="<?php echo( get_search_link( $extra ) ); ?>">
-								<?php echo $extra; ?>
-							</a>
-							<br>
-						<?php endforeach ?>
-					<?php else: mostrar_msj_inexistente(); endif; ?>
-						<br/>
-					</div> <!-- /.card-body -->
-				</div> <!-- /.card-collapse -->
-			</div> <!-- /.card-default -->
+            <div class="card box-shadow bg-dark m-1 border border-light">
+                <h5 class="card-header mb-0 cursor-pointer" data-toggle="collapse" data-parent="#accordion2" data-target="#acordeonOtros">Otros</h5>
+                <div id="acordeonOtros" class="card-collapse collapse">
+                    <div class="card-body">
+                    <?php if ( ! empty( $fields['data_reparto'] ) ): ?>
+                        <?php foreach ( $fields['data_reparto'] as $personaje ) : ?>
+                            <?php if (!($personaje['reparto_persona'])): ?>
+                        <span class="text-white">
+                            <?php echo trim( $personaje['grupo'] ); ?>
+                        </span>
+                        <br>
+                            <?php endif ?>
+                        <?php endforeach; ?>
+                    <?php else: mostrar_msj_inexistente(); endif; ?>
+                    </div> <!-- /.card-body -->
+                </div> <!-- /.card-collapse -->
+            </div>
 		</div> <!-- /#accordion2 -->
 	</div> <!-- /.card -->
 </div> <!-- /.col-md-4 -->
@@ -228,8 +230,10 @@ function mostrar_msj_inexistente() {
                             if ( ! empty( $data_taquilla ) ):
                                 $empties = 0;
                             foreach ( $data_taquilla as $field_name => $field_data ) :
-                                if ($field_data['value']) :
-                                    echo $field_data["label"].": ". $field_data["value"]."&nbsp;".$field_data["append"];
+                                if ($field_data) :
+                                    $fname = str_replace("pel_", '', $field_name);
+                                    $fname = ucfirst( str_replace( "_", ' ', $fname ) );
+                                    echo $fname.": ". $field_data."&nbsp;".$field_data["append"];
                                     echo "<br>";
                                 else:
                                     $empties++;

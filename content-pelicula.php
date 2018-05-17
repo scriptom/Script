@@ -11,9 +11,8 @@
 
 	$generos = wp_get_post_terms( get_the_ID(), 'genero' );
 	$tematicas = wp_get_post_terms( get_the_ID(), 'tematica' );
-	$fields = get_field_objects();
-
-	 error_log(print_r($generos, true));
+	$fields = get_fields();
+	error_log(print_r($fields, true));
 ?>
 <?php the_title( '<h1 class="text-center pel-titulo">', ($is_editor?"  ".$edit_btn:'').'</h1>', true ); ?>
 	<div class="row">
@@ -32,6 +31,9 @@
 				</div> <!-- /.card-body -->
 				<?php if (!empty($generos) || !empty($tematicas)): ?>
 				<div class="card-footer">
+					<?php if ( array_key_exists('pel_ano', $fields) && $fields['pel_ano'] ) {
+						echo "A&ntilde;o estreno: ".$fields['pel_ano']. '<br>';
+					} ?>
 					<?php if (!empty($generos) && ! ($generos instanceof WP_Error)) {
 						echo "G&eacute;neros: <span class='font-italic'>";
 						foreach ($generos as $genero) {

@@ -384,3 +384,15 @@ error_log(print_r(get_defined_constants(true), true));
 				</div> <!-- /.card -->
 			</div> <!-- /.col-md-12 -->
 		</div> <!-- /.row -->
+	<?php add_action( 'wp_footer', function(){
+		?>
+		<script type="text/javascript">
+			$('#editar-peli-form').on('submit', function(event){
+				let fts = document.querySelectorAll('[name^="PROP[<?php echo TABLA_FICHAS_TECNICAS ?>]"]');
+				for (var i = 0; i < fts.length; i++) {
+					fts[i].name = fts[i].name.replace(/\d+/, i);
+				}
+			})
+		</script>
+	<?php
+	}); ?>
