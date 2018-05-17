@@ -203,10 +203,24 @@ function mostrar_msj_inexistente() {
                     <h5 class="card-header mb-0 cursor-pointer" data-toggle="collapse" data-parent="#accordion3" data-target="#acordeonCritica">Cr&iacute;tica</h5>
                     <div id="acordeonCritica" class="card-collapse collapse">
                         <div class="card-body">
-                            <?php if (1===0): ?>
-                            <a class="text-white" href="<?php echo( get_search_link( $query ) ); ?>">"La locura de pelicula del año"</a>
-                            <br/>
-
+                            <?php if (array_key_exists('criticas', $fields)): ?>
+                                <?php foreach ($criticas as $critica): ?>
+                                    <?php if ($critica['contenido'] != ''): ?>
+                                <blockquote class="blockquote" cite="<?php echo $critica['fuente'] ?>"><p class="mb-0"><?php echo $critica['contenido'] ?></p></blockquote>
+                                <?php if ($critica['fuente'] != ''): ?>
+                                    
+                                <footer class="text-white blockquote-footer">Fuente: <cite title="Fuente">
+                                    <?php if (filter_var($critica['fuente'], FILTER_VALIDATE_URL)): ?>
+                                        <a href="<?php echo $critica['fuente'] ?>">enlace externo</a>
+                                    <?php else: ?>
+                                        <?php echo $critica['fuente'] ?>
+                                    <?php endif; ?>
+                                </cite></footer>
+                                <?php endif ?>
+                                <br/>
+                                    <?php endforeach ?>
+                                        
+                                    <?php endif ?>
                             <?php else: mostrar_msj_inexistente(); endif;?>
                         </div>
                     </div>
