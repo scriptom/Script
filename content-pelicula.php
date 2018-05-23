@@ -12,7 +12,7 @@
 	$generos = wp_get_post_terms( get_the_ID(), 'genero' );
 	$tematicas = wp_get_post_terms( get_the_ID(), 'tematica' );
 	$fields = get_fields();
-	error_log(print_r($fields, true));
+	// error_log(print_r($fields, true));
 ?>
 <?php the_title( '<h1 class="text-center pel-titulo">', ($is_editor?"  ".$edit_btn:'').'</h1>', true ); ?>
 	<div class="row">

@@ -31,10 +31,17 @@ add_action('wp_head', function(){
 						<img src="https://placehold.it/250x250" alt="" class="img-fluid card-img-top">
 					<?php endif; ?>
 					</a>
-					<div class="card-title text-center"><a class="text-primary" href="<?php the_permalink(); ?>"><?php the_title(); ?></a></div>
+					<div class="card-title text-center"><a class="text-white" href="<?php the_permalink(); ?>"><?php the_title(); ?></a></div>
 				</div>
 			</div>
 <?php endwhile; ?>
+
+		</div>
+		<div class="card-footer">
+			 <?php if (function_exists('fellowtuts_wpbs_pagination')) {
+				 fellowtuts_wpbs_pagination();
+			} ?>
+			
 		</div>
 	</div>
 <?php else: ?>
