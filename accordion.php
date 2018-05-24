@@ -4,34 +4,63 @@
 $data_taquilla = array_filter($fields, function($key){
     return startsWith($key, 'pel_rec') || startsWith($key, 'pel_espec');
 }, ARRAY_FILTER_USE_KEY);
-error_log(print_r($data_taquilla, true));
-$data_direccion = array_filter($fields, function($key){
-    return startsWith($key, 'direccion') || startsWith($key, 'director');
-}, ARRAY_FILTER_USE_KEY);
 
-$data_produccion = array_filter($fields, function($key){
-    return startsWith($key, 'produccion') || startsWith($key, 'productor');
-}, ARRAY_FILTER_USE_KEY);
+if (array_key_exists('criticas', $fields)) 
+    $criticas = $fields['criticas'];
 
-$data_efectos = array_filter($fields, function($key){
-    return startsWith($key, 'efectos');
-}, ARRAY_FILTER_USE_KEY);
+if (array_key_exists('locaciones', $fields)) 
+    $locaciones = $fields['locaciones'];
 
-$data_asistentes = array_filter($fields, function($key){
-    return startsWith($key, 'asistente');
-}, ARRAY_FILTER_USE_KEY);
-
-$data_casas_prod = array_filter($fields, function($key){
-    return $key === 'casas_productoras' || $key === 'financiamiento';
-}, ARRAY_FILTER_USE_KEY);
-
-$data_criticas = array_filter($fields , function($key){
-	return $key === 'criticas';
-}, ARRAY_FILTER_USE_KEY);
-
-// Datos tecnicos de la pelicula (Titulo, sinopsis, recaudo, etc.)
-// $pelicula = cvnzl_get_movie_main_data( $dbid );
-$meta_pelicula = get_post_meta( get_the_ID() );
+if (array_key_exists('data_ficha_tecnica', $fields)) {
+    $data_ficha_tecnica = $fields['data_ficha_tecnica'];
+    $casas_productoras = array();
+    $directores = array();
+    $productores = array();
+    $asistentes = array();
+    $efectos = array();
+    $disenadores = array();
+    $sonidos = array();
+    foreach ($data_ficha_tecnica as $responsable) {
+        switch ($responsable['tipo_responsable']) {
+            case 'casa_productora':
+                $casas_productoras[] = $responsable;
+                break;
+            case 'persona':
+                if (startsWith($responsable['cargo']['value'], 'direccion') || startsWith($responsable['cargo']['value'], 'director')) 
+                    $directores[] = $responsable;
+                else if (startsWith($responsable['cargo']['value'], 'produccion') || startsWith($responsable['cargo']['value'], 'productor'))
+                    $productores[] = $responsable;
+                else if (startsWith($responsable['cargo']['value'], 'efectos'))
+                    $efectos[] = $responsable;
+                else if (startsWith($responsable['cargo']['value'], 'asistente') || startsWith($responsable['cargo']['value'], 'asesor'))
+                    $asistentes[] = $responsable;
+                else if (startsWith($responsable['cargo']['value'], 'disen') || startsWith($responsable['cargo']['value'], 'arte') || startsWith($responsable['cargo']['value'], 'animacion'))
+                    $disenadores[] = $responsable;
+                else if (startsWith($responsable['cargo']['value'], 'sonid') || endsWith($responsable['cargo']['value'], 'sonid') || endsWith($responsable['cargo']['value'], 'musica') || endsWith($responsable['cargo']['value'], 'musical') ||  startsWith($responsable['cargo']['value'], 'musica'))
+                    $sonidos[] = $responsable;
+                break;
+        }
+    }
+}
+if (array_key_exists('data_reparto', $fields)) {
+    $data_reparto = $fields['data_reparto'];
+    $otros = array();
+    $personajes = array();
+    foreach ($data_reparto as $reparto) {
+        switch ($reparto['toggle_persona_grupo']) {
+            case 'persona':
+                $personajes[] = $reparto;
+                break;
+            
+            case 'grupo':
+                $otros[] = $reparto;
+                break;
+        }
+    }
+}
+error_log(print_r($otros, true));
+error_log(print_r($personajes, true));
+// $meta_pelicula = get_post_meta( get_the_ID() );
 
 function mostrar_msj_inexistente() {
     $edit_url = add_query_arg('edit', 1);
@@ -55,23 +84,45 @@ function mostrar_msj_inexistente() {
                 <h5 class="card-header mb-0 cursor-pointer" data-toggle="collapse" data-parent="#accordion" data-target="#acordeonDirectores">Directores</h5>
                 <div id="acordeonDirectores" class="collapse" role="tabpanel">
                     <div class="card-body">
-                  	<?php if ( ! empty( $data_direccion ) ) : ?>
-                        <?php foreach ( $data_direccion as $cargo => $data ) : ?>
-                            <span><?php echo trim( $data['label'], " " ).": "; ?>
-                            <?php if ( count( $data['value'] ) > 1 ): ?>
-                            	<ul>
-                            		<?php foreach ( $data['value'] as $encargado ): ?>
-                            			<li><a href="<?php echo(get_permalink( $encargado->ID ) ); ?>" class="text-white"><?php echo trim( $encargado->post_title ); ?></a></li>
-                            		<?php endforeach; ?>
-                            	</ul>
-                            <?php else: ?>
-                                <a href="<?php echo get_permalink( $data['value'][0]->ID ); ?>" class="text-white" >
-	                                <?php echo trim( $data['value'][0]->post_title ); ?>
-	                            </a>
-                          	<?php endif; ?>
-                        	</span>
-                            <br>
-                        <?php endforeach; ?>
+                  	<?php if ( ! is_null( $directores )  || ! is_null( $productores ) ): ?>
+                        <?php if ( (! is_null( $directores )) && (! empty( $directores )) ) : ?>
+                            <?php foreach ( $directores as $director ) : ?>
+                                <?php $tipo_responsable = $director['tipo_responsable']; ?>
+                                <span><?php echo trim( $director['cargo']['label'] ).": "; ?>
+                                <?php if ( count( $director["{$tipo_responsable}_responsable"] ) > 1 ): ?>
+                                	<ul>
+                                		<?php foreach ( $director["{$tipo_responsable}_responsable"] as $responable ): ?>
+                                			<li><a href="<?php echo(get_permalink( $responsable->ID ) ); ?>" class="text-white"><?php echo trim( $responsable->post_title ); ?></a></li>
+                                		<?php endforeach; ?>
+                                	</ul>
+                                <?php else: ?>
+                                    <a href="<?php echo get_permalink( $director["{$tipo_responsable}_responsable"][0]->ID ); ?>" class="text-white" >
+    	                                <?php echo trim( $director["{$tipo_responsable}_responsable"][0]->post_title ); ?>
+    	                            </a>
+                              	<?php endif; ?>
+                            	</span>
+                                <br>
+                            <?php endforeach; ?>
+                        <?php endif; ?>
+                        <?php if ( (!is_null($productores)) && (! empty( $productores )) ) : ?>
+                            <?php foreach ( $productores as $productor ) : ?>
+                                <?php $tipo_responsable = $productor['tipo_responsable']; ?>
+                                <span><?php echo trim( $productor['cargo']['label'] ).": "; ?>
+                                <?php if ( count( $productor["{$tipo_responsable}_responsable"] ) > 1 ): ?>
+                                    <ul>
+                                        <?php foreach ( $productor["{$tipo_responsable}_responsable"] as $responable ): ?>
+                                            <li><a href="<?php echo(get_permalink( $responsable->ID ) ); ?>" class="text-white"><?php echo trim( $responsable->post_title ); ?></a></li>
+                                        <?php endforeach; ?>
+                                    </ul>
+                                <?php else: ?>
+                                    <a href="<?php echo get_permalink( $productor["{$tipo_responsable}_responsable"][0]->ID ); ?>" class="text-white" >
+                                        <?php echo trim( $productor["{$tipo_responsable}_responsable"][0]->post_title ); ?>
+                                    </a>
+                                <?php endif; ?>
+                                </span>
+                                <br>
+                            <?php endforeach; ?>
+                        <?php endif; ?>
                     <?php else: mostrar_msj_inexistente(); endif; ?>
                     </div> <!-- /.card-body -->
                 </div> <!-- /.collapse -->
@@ -80,22 +131,23 @@ function mostrar_msj_inexistente() {
                 <h5 class="card-header mb-0 cursor-pointer" data-parent="#accordion" data-target="#acordeonAsistentes" data-toggle="collapse">Asistentes</h5>
                 <div id="acordeonAsistentes" class="card-collapse collapse">
                 	<div class="card-body">
-                	<?php if ( ! empty( $data_asistentes ) ) : ?>
-                        <?php foreach ( $data_asistentes as $cargo => $data ) : ?>
-							<span><?php echo $data['label']; ?>:
-                                <?php if ( count( $data['value'] ) > 1 ) : ?>
+                	<?php if ( (! is_null($asistentes)) && (! empty( $asistentes )) ) : ?>
+                        <?php foreach ( $asistentes as $asistente ) : ?>
+                            <?php $tipo_responsable = $asistente['tipo_responsable']; ?>
+							<span><?php echo trim($asistente['cargo']['label']).": "; ?>
+                                <?php if ( count( $asistente["{$tipo_responsable}_responsable"] ) > 1 ) : ?>
                                 	<ul>
-                                    <?php  foreach ( $data['value'] as $encargado ): ?>
+                                    <?php  foreach ( $asistente["{$tipo_responsable}_responsable"] as $responsable ): ?>
                                     	<li>
-                                      		<a class="text-white" href="<?php echo( get_permalink( $encargado->ID ) ); ?>">
-                                      		<?php echo trim( $encargado->post_title ); ?>
+                                      		<a class="text-white" href="<?php echo( get_permalink( $responsable->ID ) ); ?>">
+                                      		<?php echo trim( $responsable->post_title ); ?>
                                       		</a>
                                     	</li>
                                     <?php endforeach; ?>
                                 	</ul>
                                 <?php else: ?>
-                                    <a class="text-white" href="<?php echo( get_permalink( $data['value'][0]->ID ) ); ?>">
-                                    	<?php echo trim( $data['value'][0]->post_title ); ?>
+                                    <a class="text-white" href="<?php echo( get_permalink( $asistente["{$tipo_responsable}_responsable"][0]->ID ) ); ?>">
+                                    	<?php echo trim( $asistente["{$tipo_responsable}_responsable"][0]->post_title ); ?>
                                 	</a>
                                 <?php endif; ?>
                             </span>
@@ -107,30 +159,84 @@ function mostrar_msj_inexistente() {
                 </div>
             </div>
             <div class="card box-shadow bg-dark m-1 border border-light">
-                <h5 class="card-header mb-0 cursor-pointer" data-toggle="collapse" data-parent="#accordion" data-target="#acordeonEfectos">Efectos</h5>
+                <h5 class="card-header mb-0 cursor-pointer" data-toggle="collapse" data-parent="#accordion" data-target="#acordeonEfectos">Efectos y dise&ntilde;o</h5>
                 <div id="acordeonEfectos" class="card-collapse collapse">
                     <div class="card-body">
-                    	<?php if ( ! empty( $data_efectos ) ) : ?>
-                        	<?php foreach ( $data_efectos as $cargo => $data ) : ?>
-                            <span><?php echo $data['label'] ?>:
-	                            <?php if ( count( $data['value'] ) > 1 ) : ?>
-                                <ul>
-                                	<?php foreach ( $data['value'] as $encargado ) : ?>
-                                    <li>
-                                    	<a href="<?php echo get_permalink($encargado->ID); ?>" class="text-white">
-                                    		<?php echo trim( $encargado->post_title ); ?>
-                                    	</a>
-                                    </li>
-                                  	<?php endforeach; ?>
-                                </ul>
-	                            <?php else: ?>
-                                <a class="text-white" href="<?php echo( get_permalink( $data['value'][0]->ID ) ); ?>">
-                                	<?php echo trim( $data['value'][0]->post_title); ?>
-                            	</a>
-	                            <?php endif; ?>
-                            </span>
-                          	<?php endforeach; ?>
+                    	<?php if (  ! is_null($efectos)  || ! is_null($disenadores) ) : ?>
+                            <?php if (! empty( $efectos ) ): ?>
+                                <?php foreach ( $efectos as $enc_efecto ) : ?>
+                                    <?php $tipo_responsable = $enc_efecto['tipo_responsable']; ?>
+                                <span><?php echo trim($enc_efecto['cargo']['label']).": " ?>
+                                    <?php if ( count( $enc_efecto["{$tipo_responsable}_responsable"] ) > 1 ) : ?>
+                                    <ul>
+                                        <?php foreach ( $enc_efecto["{$tipo_responsable}_responsable"] as $responsable ) : ?>
+                                        <li>
+                                            <a href="<?php echo get_permalink($responsable->ID); ?>" class="text-white">
+                                                <?php echo trim( $responsable->post_title ); ?>
+                                            </a>
+                                        </li>
+                                        <?php endforeach; ?>
+                                    </ul>
+                                    <?php else: ?>
+                                    <a class="text-white" href="<?php echo( get_permalink( $enc_efecto["{$tipo_responsable}_responsable"][0]->ID ) ); ?>">
+                                        <?php echo trim( $enc_efecto["{$tipo_responsable}_responsable"][0]->post_title); ?>
+                                    </a>
+                                    <?php endif; ?>
+                                </span>
+                                <?php endforeach; ?>
+                            <?php endif ?>
+                            <?php if ( ( ! is_null($disenadores)) && (! empty( $disenadores )) ): ?>
+                                <?php foreach ( $disenadores as $disenador ) : ?>
+                                    <?php $tipo_responsable = $disenador['tipo_responsable']; ?>
+                                <span><?php echo trim($disenador['cargo']['label']).": " ?>
+                                    <?php if ( count( $disenador["{$tipo_responsable}_responsable"] ) > 1 ) : ?>
+                                    <ul>
+                                        <?php foreach ( $disenador["{$tipo_responsable}_responsable"] as $responsable ) : ?>
+                                        <li>
+                                            <a href="<?php echo get_permalink($responsable->ID); ?>" class="text-white">
+                                                <?php echo trim( $responsable->post_title ); ?>
+                                            </a>
+                                        </li>
+                                        <?php endforeach; ?>
+                                    </ul>
+                                    <?php else: ?>
+                                    <a class="text-white" href="<?php echo( get_permalink( $disenador["{$tipo_responsable}_responsable"][0]->ID ) ); ?>">
+                                        <?php echo trim( $disenador["{$tipo_responsable}_responsable"][0]->post_title); ?>
+                                    </a>
+                                    <?php endif; ?>
+                                </span>
+                                <?php endforeach; ?>
+                            <?php endif ?>
                       	<?php else: mostrar_msj_inexistente(); endif ?>
+                    </div> <!-- .card-body -->
+                </div> <!-- .card-collapse -->
+            </div> <!-- /.card -->
+            <div class="card box-shadow bg-dark m-1 border border-light">
+                <h5 class="card-header mb-0 cursor-pointer" data-toggle="collapse" data-parent="#accordion" data-target="#acordeonMusica">M&uacute;sica y Sonido</h5>
+                <div id="acordeonMusica" class="card-collapse collapse">
+                    <div class="card-body">
+                        <?php if ( (! is_null($sonidos)) && (! empty( $sonidos )) ) : ?>
+                            <?php foreach ( $sonidos as $sonido ) : ?>
+                                <?php $tipo_responsable = $sonido['tipo_responsable']; ?>
+                            <span><?php echo trim($sonido['cargo']['label']).": " ?>
+                                <?php if ( count( $sonido["{$tipo_responsable}_responsable"] ) > 1 ) : ?>
+                                <ul>
+                                    <?php foreach ( $sonido["{$tipo_responsable}_responsable"] as $responsable ) : ?>
+                                    <li>
+                                        <a href="<?php echo get_permalink($responsable->ID); ?>" class="text-white">
+                                            <?php echo trim( $responsable->post_title ); ?>
+                                        </a>
+                                    </li>
+                                    <?php endforeach; ?>
+                                </ul>
+                                <?php else: ?>
+                                <a class="text-white" href="<?php echo( get_permalink( $sonido["{$tipo_responsable}_responsable"][0]->ID ) ); ?>">
+                                    <?php echo trim( $sonido["{$tipo_responsable}_responsable"][0]->post_title); ?>
+                                </a>
+                                <?php endif; ?>
+                            </span>
+                            <?php endforeach; ?>
+                        <?php else: mostrar_msj_inexistente(); endif ?>
                     </div> <!-- .card-body -->
                 </div> <!-- .card-collapse -->
             </div> <!-- /.card -->
@@ -150,22 +256,22 @@ function mostrar_msj_inexistente() {
 				<h5 class="card-header mb-0 cursor-pointer" data-toggle="collapse" data-parent="#accordion2" data-target="#acordeonPersonajes">Personajes</h5>
 				<div id="acordeonPersonajes" class="card-collapse collapse">
 					<div class="card-body">
-					<?php if ( ! empty( $fields['data_reparto'] ) ): ?>
-						<?php foreach ( $fields['data_reparto'] as $personaje ) : ?>
+					<?php if ( !is_null( $personajes ) && (! empty( $personajes )) ): ?>
+						<?php foreach ( $personajes as $personaje ) : ?>
+                            <?php if ( ! is_null( $personaje['reparto_persona'] ) && $personaje['reparto_persona'] instanceof WP_Post): ?>
 						<span>
-                            <?php if (!is_null($personaje['reparto_persona']) && $personaje['reparto_persona'] instanceof WP_Post): ?>
                                 
-                            <a class="text-white" href="<?php echo( get_search_link( $personaje['reparto_persona']->post_title ) ); ?>">
+                            <a class="text-white" href="<?php echo( get_permalink( $personaje['reparto_persona'] ) ); ?>">
                                 <?php echo trim( $personaje['reparto_persona']->post_title ); ?>
                             </a> 
-                                <?php if ($personaje['personaje']): ?>
+                                <?php if ($personaje['personaje'] !== ''): ?>
                                 -
                                 <i><?php echo trim( $personaje['personaje'] ); ?></i>
                                     
                                 <?php endif ?>
-                            <?php endif ?>
 						</span>
 						<br>
+                            <?php endif ?>
 						<?php endforeach; ?>
 					<?php else: mostrar_msj_inexistente(); endif; ?>
 					</div> <!-- /.card-body -->
@@ -175,15 +281,12 @@ function mostrar_msj_inexistente() {
                 <h5 class="card-header mb-0 cursor-pointer" data-toggle="collapse" data-parent="#accordion2" data-target="#acordeonOtros">Otros</h5>
                 <div id="acordeonOtros" class="card-collapse collapse">
                     <div class="card-body">
-                    <?php if ( ! empty( $fields['data_reparto'] ) ): ?>
-                        <?php foreach ( $fields['data_reparto'] as $personaje ) : ?>
-                            <?php if (!($personaje['reparto_persona'])): ?>
-                        <span class="text-white">
-                            <?php echo trim( $personaje['grupo'] ); ?>
-                        </span>
-                        <br>
-                            <?php endif ?>
+                    <?php if ( ( ! is_null($otros) ) && ( ! empty( $otros ) ) ): ?>
+                        <ol>
+                        <?php foreach ( $otros as $otro ) : ?>
+                                <?php echo "<li>".$otro['grupo']."</li>"; ?>
                         <?php endforeach; ?>
+                        </ol>
                     <?php else: mostrar_msj_inexistente(); endif; ?>
                     </div> <!-- /.card-body -->
                 </div> <!-- /.card-collapse -->
@@ -203,24 +306,22 @@ function mostrar_msj_inexistente() {
                     <h5 class="card-header mb-0 cursor-pointer" data-toggle="collapse" data-parent="#accordion3" data-target="#acordeonCritica">Cr&iacute;tica</h5>
                     <div id="acordeonCritica" class="card-collapse collapse">
                         <div class="card-body">
-                            <?php if (array_key_exists('criticas', $fields)): ?>
+                            <?php if (!is_null($criticas)): ?>
                                 <?php foreach ($criticas as $critica): ?>
                                     <?php if ($critica['contenido'] != ''): ?>
-                                <blockquote class="blockquote" cite="<?php echo $critica['fuente'] ?>"><p class="mb-0"><?php echo $critica['contenido'] ?></p></blockquote>
-                                <?php if ($critica['fuente'] != ''): ?>
-                                    
-                                <footer class="text-white blockquote-footer">Fuente: <cite title="Fuente">
+                                    <blockquote class="blockquote" cite="<?php echo $critica['fuente'] ?>"><p class="mb-0"><?php echo $critica['contenido'] ?></p></blockquote>
+                                    <?php if ($critica['fuente'] != ''): ?>
+                                    <footer class="text-white blockquote-footer">Fuente: <cite title="Fuente">
                                     <?php if (filter_var($critica['fuente'], FILTER_VALIDATE_URL)): ?>
                                         <a href="<?php echo $critica['fuente'] ?>">enlace externo</a>
                                     <?php else: ?>
                                         <?php echo $critica['fuente'] ?>
                                     <?php endif; ?>
-                                </cite></footer>
-                                <?php endif ?>
+                                    </cite></footer>
+                                    <?php endif; ?>
                                 <br/>
-                                    <?php endforeach ?>
-                                        
-                                    <?php endif ?>
+                                    <?php endif; ?>
+                                <?php endforeach; ?>
                             <?php else: mostrar_msj_inexistente(); endif;?>
                         </div>
                     </div>
@@ -229,9 +330,20 @@ function mostrar_msj_inexistente() {
                     <h5 class="card-header mb-0 cursor-pointer" data-toggle="collapse" data-parent="#accordion3" data-target="#acordeonLocaciones">Locaciones</h5>
                     <div id="acordeonLocaciones" class="card-collapse collapse">
                         <div class="card-body">
-                            <?php if (1===0): ?>
-                            <a class="text-white" href="<?php echo( get_search_link( $query ) ); ?>">Res. San souci / Chacaito / Caracas / dtto Capital / Vnzla</a>
-                            <br/>
+                            <?php if (!is_null($locaciones)): ?>
+                                <?php foreach ($locaciones as $locacion): ?>
+                                    <?php $echo = ''; ?>
+                                    <p>
+                                        <?php foreach ($locacion as $tipo => $lugar): 
+                                            if ($lugar !== '') {
+                                                $urlencode = urlencode($lugar);
+                                                $echo .= "<a href=\"https://google.com/search?q=$urlencode\">$lugar</a>, ";
+                                            }
+                                        endforeach;
+                                        echo trim($echo, ", "); 
+                                        ?>
+                                    </p>
+                                <?php endforeach ?>
                             <?php else: mostrar_msj_inexistente(); endif; ?>
                         </div>
                     </div>
@@ -247,7 +359,7 @@ function mostrar_msj_inexistente() {
                                 if ($field_data) :
                                     $fname = str_replace("pel_", '', $field_name);
                                     $fname = ucfirst( str_replace( "_", ' ', $fname ) );
-                                    echo $fname.": ". $field_data."&nbsp;".$field_data["append"];
+                                    echo $fname.": ". $field_data."&nbsp;". ((strpos($field_name, 'recaudo') !== false) ? 'Bs.' : 'personas');
                                     echo "<br>";
                                 else:
                                     $empties++;

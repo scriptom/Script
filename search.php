@@ -1,8 +1,9 @@
 <?php
 add_action('wp_head', function(){
 	global $wp_query;
+	$wp_query->set( 'orderby', 'post_title' );
 	$wp_query->set( 'order', 'asc' );
-	$wp_query->set( 'orderby', 'title' );
+	$wp_query->set( 'numposts', 12 );
 });
  ?>
 <?php get_header();
@@ -23,18 +24,25 @@ add_action('wp_head', function(){
 		<div class="row">
 <?php while ( have_posts() ) : the_post(); ?>
 			<div class="col-md-3 mb-5">
-				<div class="card bg-secondary">
+				<div class="card bg-secondary search-result">
 					<a href="<?php the_permalink(); ?>">
 					<?php if ( has_post_thumbnail() ) : ?>
-						<?php the_post_thumbnail( 'thumbnail', array( 'class' => 'img-fluid card-img-top' ) ); ?>
+						<?php the_post_thumbnail( 'medium', array( 'class' => 'img-fluid card-img-top' ) ); ?>
 					<?php else: ?>
 						<img src="https://placehold.it/250x250" alt="" class="img-fluid card-img-top">
 					<?php endif; ?>
 					</a>
-					<div class="card-title text-center"><a class="text-primary" href="<?php the_permalink(); ?>"><?php the_title(); ?></a></div>
+					<div class="card-title text-center"><a class="text-white" href="<?php the_permalink(); ?>"><?php the_title(); ?></a></div>
 				</div>
 			</div>
 <?php endwhile; ?>
+
+		</div>
+		<div class="card-footer">
+			 <?php if (function_exists('fellowtuts_wpbs_pagination')) {
+				 fellowtuts_wpbs_pagination();
+			} ?>
+			
 		</div>
 	</div>
 <?php else: ?>

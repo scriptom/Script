@@ -24,8 +24,8 @@
                   <?php endif; ?>
                   <div class="col-md-3 d-md-block <?php if ($counter % 4 !== 0) echo 'd-none' ?>">
                     <a href="<?php echo get_the_permalink( $movie['ID'] ); ?>" title="<?php echo get_the_title( $movie['ID'] ); ?>">
-                      <?php if ( has_post_thumbnail( $movie ) ) :?>
-                        <img src="<?php echo get_the_post_thumbnail_url( $movie['ID'], 'thumbnail' ) ?>" title="<?php echo get_the_title( $movie['ID'] ); ?>" alt="<?php echo get_the_title( $movie['ID'] ); ?>"></a>
+                      <?php if ( has_post_thumbnail( $movie['ID'] ) ) :?>
+                        <img src="<?php echo get_the_post_thumbnail_url( $movie['ID'], 'medium' ) ?>" title="<?php echo get_the_title( $movie['ID'] ); ?>" alt="<?php echo get_the_title( $movie['ID'] ); ?>"></a>
                       <?php else: ?>
                         <img src="holder.js/150x250" alt="DummyImg"></a>
                       <?php endif; $counter++; ?>

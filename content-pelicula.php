@@ -12,13 +12,13 @@
 	$generos = wp_get_post_terms( get_the_ID(), 'genero' );
 	$tematicas = wp_get_post_terms( get_the_ID(), 'tematica' );
 	$fields = get_fields();
-	error_log(print_r($fields, true));
+	// error_log(print_r($fields, true));
 ?>
 <?php the_title( '<h1 class="text-center pel-titulo">', ($is_editor?"  ".$edit_btn:'').'</h1>', true ); ?>
 	<div class="row">
 		<div class="col-md-4">
 			<?php if ( has_post_thumbnail() ) :
-					the_post_thumbnail( 'post-thumbnail', array( 'class' => 'img-fluid poster rounded' ) );
+					the_post_thumbnail( 'large', array( 'class' => 'img-fluid poster rounded' ) );
 			 	  else: ?>
 			<img src="holder.js/350x400" alt="placeholder" class="img-fluid poster rounded">
 			<?php endif; ?>
