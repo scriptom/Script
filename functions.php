@@ -442,7 +442,7 @@ acf_add_local_field_group(array(
 						'compositor_y_productor_musical' => 'Compositor y Productor Musical',
 						'coordinador_de_casting' => 'Coordinador de Casting',
 						'co-produccion' => 'Co-producción',
-						'coproductor: Coproductor' => 'coproductor: Coproductor',
+						'coproductor' => 'Coproductor',
 						'departamento_de_arte' => 'Departamento de Arte',
 						'departamento_de_musica' => 'Departamento de Música',
 						'departamento_editorial' => 'Departamento Editorial',
@@ -472,7 +472,7 @@ acf_add_local_field_group(array(
 						'edicion_de_sonido' => 'Edición de Sonido',
 						'efectos' => 'Efectos',
 						'efectos_de_post-produccion' => 'Efectos de Post-producción',
-						'efectos_de_sonido _ Efectos de sonido' => 'efectos_de_sonido _ Efectos de sonido',
+						'efectos_de_sonido' => 'Efectos de sonido',
 						'efectos_digitales' => 'Efectos Digitales',
 						'efectos_especiales' => 'Efectos Especiales',
 						'efectos_visuales' => 'Efectos Visuales',
@@ -1297,48 +1297,48 @@ function cvnzl_google_api_key() {
 }
 
 // Fuente: http://fellowtuts.com/twitter-bootstrap/wordpress-pagination-bootstrap-4-style/
-function fellowtuts_wpbs_pagination($pages = '', $range = 2) 
-{  
-	$showitems = ($range * 2) + 1;  
+function fellowtuts_wpbs_pagination($pages = '', $range = 2)
+{
+	$showitems = ($range * 2) + 1;
 	global $paged;
 	if(empty($paged)) $paged = 1;
 	if($pages == '')
 	{
-		global $wp_query; 
+		global $wp_query;
 		$pages = $wp_query->max_num_pages;
-	
+
 		if(!$pages)
-			$pages = 1;		 
-	}   
-	
+			$pages = 1;
+	}
+
 	if(1 != $pages)
 	{
 	    echo '<nav aria-label="Page navigation" role="navigation">';
         echo '<span class="sr-only">Page navigation</span>';
         echo '<ul class="pagination justify-content-center ft-wpbs">';
-		
+
         echo '<li class="page-item disabled hidden-md-down d-none d-lg-block"><span class="page-link">P&aacute;gina '.$paged.' de '.$pages.'</span></li>';
-	
-	 	if($paged > 2 && $paged > $range+1 && $showitems < $pages) 
+
+	 	if($paged > 2 && $paged > $range+1 && $showitems < $pages)
 			echo '<li class="page-item"><a class="page-link" href="'.get_pagenum_link(1).'" aria-label="First P&aacute;gina"><span class="hidden-sm-down d-none d-md-block">&laquo; Primera</span></a></li>';
-	
-	 	if($paged > 1 && $showitems < $pages) 
+
+	 	if($paged > 1 && $showitems < $pages)
 			echo '<li class="page-item"><a class="page-link" href="'.get_pagenum_link($paged - 1).'" aria-label="Previous P&aacute;gina"><span class="hidden-sm-down d-none d-md-block">&lsaquo; Anterior</span></a></li>';
-	
+
 		for ($i=1; $i <= $pages; $i++)
 		{
 		    if (1 != $pages &&( !($i >= $paged+$range+1 || $i <= $paged-$range-1) || $pages <= $showitems ))
 				echo ($paged == $i)? '<li class="page-item active"><span class="page-link"><span class="sr-only">Current P&aacute;gina </span>'.$i.'</span></li>' : '<li class="page-item"><a class="page-link" href="'.get_pagenum_link($i).'"><span class="sr-only">P&aacute;gina </span>'.$i.'</a></li>';
 		}
-		
-		if ($paged < $pages && $showitems < $pages) 
-			echo '<li class="page-item"><a class="page-link" href="'.get_pagenum_link($paged + 1).'" aria-label="Siguiente P&aacute;gina"><span class="hidden-sm-down d-none d-md-block">Siguiente &rsaquo;</span></a></li>';  
-	
-	 	if ($paged < $pages-1 &&  $paged+$range-1 < $pages && $showitems < $pages) 
+
+		if ($paged < $pages && $showitems < $pages)
+			echo '<li class="page-item"><a class="page-link" href="'.get_pagenum_link($paged + 1).'" aria-label="Siguiente P&aacute;gina"><span class="hidden-sm-down d-none d-md-block">Siguiente &rsaquo;</span></a></li>';
+
+	 	if ($paged < $pages-1 &&  $paged+$range-1 < $pages && $showitems < $pages)
 			echo '<li class="page-item"><a class="page-link" href="'.get_pagenum_link($pages).'" aria-label="Last P&aacute;gina"><span class="hidden-sm-down d-none d-md-block">&Uacute;ltima &raquo;</span></a></li>';
-	
+
 	 	echo '</ul>';
         echo '</nav>';
-        //echo '<div class="pagination-info mb-5 text-center">[ <span class="text-muted">Page</span> '.$paged.' <span class="text-muted">of</span> '.$pages.' ]</div>';	 	
+        //echo '<div class="pagination-info mb-5 text-center">[ <span class="text-muted">Page</span> '.$paged.' <span class="text-muted">of</span> '.$pages.' ]</div>';
 	}
 }
