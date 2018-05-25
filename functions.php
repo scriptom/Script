@@ -555,7 +555,7 @@ acf_add_local_field_group(array(
 					'placeholder' => '',
 				),
 				array(
-					'key' => 'field_per_responsable',
+					'key' => 'field_persona_responsable',
 					'label' => 'Persona Responsable',
 					'name' => 'persona_responsable',
 					'type' => 'post_object',
