@@ -373,7 +373,7 @@ acf_add_local_field_group(array(
 				'class' => '',
 				'id' => '',
 			),
-			'collapsed' => 'field_per_responsable',
+			'collapsed' => 'field_persona_responsable',
 			'min' => 0,
 			'max' => 0,
 			'layout' => 'block',
