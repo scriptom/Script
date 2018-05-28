@@ -5,13 +5,13 @@ $data_taquilla = array_filter($fields, function($key){
     return startsWith($key, 'pel_rec') || startsWith($key, 'pel_espec');
 }, ARRAY_FILTER_USE_KEY);
 
-if (array_key_exists('criticas', $fields)) 
+if ( array_key_exists( 'criticas', $fields ) && ! empty( $fields['criticas'] ) ) 
     $criticas = $fields['criticas'];
 
-if (array_key_exists('locaciones', $fields)) 
+if ( array_key_exists( 'locaciones', $fields ) && ! empty( $fields['locaciones'] ) ) 
     $locaciones = $fields['locaciones'];
 
-if (array_key_exists('data_ficha_tecnica', $fields)) {
+if ( array_key_exists( 'data_ficha_tecnica', $fields ) && ! empty( $fields['data_ficha_tecnica'] ) ) {
     $data_ficha_tecnica = $fields['data_ficha_tecnica'];
     $casas_productoras = array();
     $directores = array();
@@ -42,7 +42,7 @@ if (array_key_exists('data_ficha_tecnica', $fields)) {
         }
     }
 }
-if (array_key_exists('data_reparto', $fields)) {
+if ( array_key_exists( 'data_reparto', $fields ) && ! empty( $fields['data_reparto'] ) ) {
     $data_reparto = $fields['data_reparto'];
     $otros = array();
     $personajes = array();
@@ -84,8 +84,8 @@ function mostrar_msj_inexistente() {
                 <h5 class="card-header mb-0 cursor-pointer" data-toggle="collapse" data-parent="#accordion" data-target="#acordeonDirectores">Directores</h5>
                 <div id="acordeonDirectores" class="collapse" role="tabpanel">
                     <div class="card-body">
-                  	<?php if ( ! is_null( $directores )  || ! is_null( $productores ) ): ?>
-                        <?php if ( (! is_null( $directores )) && (! empty( $directores )) ) : ?>
+                  	<?php if ( isset( $directores )  || isset( $productores ) ): ?>
+                        <?php if ( ! empty( $directores ) ) : ?>
                             <?php foreach ( $directores as $director ) : ?>
                                 <?php $tipo_responsable = $director['tipo_responsable']; ?>
                                 <span><?php echo trim( $director['cargo']['label'] ).": "; ?>
@@ -104,7 +104,7 @@ function mostrar_msj_inexistente() {
                                 <br>
                             <?php endforeach; ?>
                         <?php endif; ?>
-                        <?php if ( (!is_null($productores)) && (! empty( $productores )) ) : ?>
+                        <?php if ( ! empty( $productores ) ) : ?>
                             <?php foreach ( $productores as $productor ) : ?>
                                 <?php $tipo_responsable = $productor['tipo_responsable']; ?>
                                 <span><?php echo trim( $productor['cargo']['label'] ).": "; ?>
@@ -131,7 +131,7 @@ function mostrar_msj_inexistente() {
                 <h5 class="card-header mb-0 cursor-pointer" data-parent="#accordion" data-target="#acordeonAsistentes" data-toggle="collapse">Asistentes</h5>
                 <div id="acordeonAsistentes" class="card-collapse collapse">
                 	<div class="card-body">
-                	<?php if ( (! is_null($asistentes)) && (! empty( $asistentes )) ) : ?>
+                	<?php if ( ! empty( $asistentes ) ) : ?>
                         <?php foreach ( $asistentes as $asistente ) : ?>
                             <?php $tipo_responsable = $asistente['tipo_responsable']; ?>
 							<span><?php echo trim($asistente['cargo']['label']).": "; ?>
@@ -162,7 +162,7 @@ function mostrar_msj_inexistente() {
                 <h5 class="card-header mb-0 cursor-pointer" data-toggle="collapse" data-parent="#accordion" data-target="#acordeonEfectos">Efectos y dise&ntilde;o</h5>
                 <div id="acordeonEfectos" class="card-collapse collapse">
                     <div class="card-body">
-                    	<?php if (  ! is_null($efectos)  || ! is_null($disenadores) ) : ?>
+                    	<?php if ( isset( $efectos )  || isset( $disenadores ) ) : ?>
                             <?php if (! empty( $efectos ) ): ?>
                                 <?php foreach ( $efectos as $enc_efecto ) : ?>
                                     <?php $tipo_responsable = $enc_efecto['tipo_responsable']; ?>
@@ -185,7 +185,7 @@ function mostrar_msj_inexistente() {
                                 </span>
                                 <?php endforeach; ?>
                             <?php endif ?>
-                            <?php if ( ( ! is_null($disenadores)) && (! empty( $disenadores )) ): ?>
+                            <?php if ( ! empty( $disenadores ) ): ?>
                                 <?php foreach ( $disenadores as $disenador ) : ?>
                                     <?php $tipo_responsable = $disenador['tipo_responsable']; ?>
                                 <span><?php echo trim($disenador['cargo']['label']).": " ?>
@@ -215,7 +215,7 @@ function mostrar_msj_inexistente() {
                 <h5 class="card-header mb-0 cursor-pointer" data-toggle="collapse" data-parent="#accordion" data-target="#acordeonMusica">M&uacute;sica y Sonido</h5>
                 <div id="acordeonMusica" class="card-collapse collapse">
                     <div class="card-body">
-                        <?php if ( (! is_null($sonidos)) && (! empty( $sonidos )) ) : ?>
+                        <?php if ( ! empty( $sonidos ) ) : ?>
                             <?php foreach ( $sonidos as $sonido ) : ?>
                                 <?php $tipo_responsable = $sonido['tipo_responsable']; ?>
                             <span><?php echo trim($sonido['cargo']['label']).": " ?>
@@ -256,9 +256,9 @@ function mostrar_msj_inexistente() {
 				<h5 class="card-header mb-0 cursor-pointer" data-toggle="collapse" data-parent="#accordion2" data-target="#acordeonPersonajes">Personajes</h5>
 				<div id="acordeonPersonajes" class="card-collapse collapse">
 					<div class="card-body">
-					<?php if ( !is_null( $personajes ) && (! empty( $personajes )) ): ?>
+					<?php if ( ! empty( $personajes ) ): ?>
 						<?php foreach ( $personajes as $personaje ) : ?>
-                            <?php if ( ! is_null( $personaje['reparto_persona'] ) && $personaje['reparto_persona'] instanceof WP_Post): ?>
+                            <?php if ( ! empty( $personaje['reparto_persona'] ) && $personaje['reparto_persona'] instanceof WP_Post): ?>
 						<span>
                                 
                             <a class="text-white" href="<?php echo( get_permalink( $personaje['reparto_persona'] ) ); ?>">
@@ -281,7 +281,7 @@ function mostrar_msj_inexistente() {
                 <h5 class="card-header mb-0 cursor-pointer" data-toggle="collapse" data-parent="#accordion2" data-target="#acordeonOtros">Otros</h5>
                 <div id="acordeonOtros" class="card-collapse collapse">
                     <div class="card-body">
-                    <?php if ( ( ! is_null($otros) ) && ( ! empty( $otros ) ) ): ?>
+                    <?php if ( ! empty( $otros ) ): ?>
                         <ol>
                         <?php foreach ( $otros as $otro ) : ?>
                                 <?php echo "<li>".$otro['grupo']."</li>"; ?>
@@ -306,7 +306,7 @@ function mostrar_msj_inexistente() {
                     <h5 class="card-header mb-0 cursor-pointer" data-toggle="collapse" data-parent="#accordion3" data-target="#acordeonCritica">Cr&iacute;tica</h5>
                     <div id="acordeonCritica" class="card-collapse collapse">
                         <div class="card-body">
-                            <?php if (!is_null($criticas)): ?>
+                            <?php if ( ! empty( $criticas ) ): ?>
                                 <?php foreach ($criticas as $critica): ?>
                                     <?php if ($critica['contenido'] != ''): ?>
                                     <blockquote class="blockquote" cite="<?php echo $critica['fuente'] ?>"><p class="mb-0"><?php echo $critica['contenido'] ?></p></blockquote>
@@ -330,7 +330,7 @@ function mostrar_msj_inexistente() {
                     <h5 class="card-header mb-0 cursor-pointer" data-toggle="collapse" data-parent="#accordion3" data-target="#acordeonLocaciones">Locaciones</h5>
                     <div id="acordeonLocaciones" class="card-collapse collapse">
                         <div class="card-body">
-                            <?php if (!is_null($locaciones)): ?>
+                            <?php if ( ! empty( $locaciones ) ): ?>
                                 <?php foreach ($locaciones as $locacion): ?>
                                     <?php $echo = ''; ?>
                                     <p>
