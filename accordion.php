@@ -58,9 +58,6 @@ if ( array_key_exists( 'data_reparto', $fields ) && ! empty( $fields['data_repar
         }
     }
 }
-error_log(print_r($otros, true));
-error_log(print_r($personajes, true));
-// $meta_pelicula = get_post_meta( get_the_ID() );
 
 function mostrar_msj_inexistente() {
     $edit_url = add_query_arg('edit', 1);
